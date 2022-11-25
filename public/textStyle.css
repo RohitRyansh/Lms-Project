@@ -1,0 +1,48 @@
+.courses
+{
+    margin-left: 16%;
+}
+.allUser
+{
+    display: flex;
+    justify-content: space-between;
+    margin-left: 16%;
+}
+.all
+{
+    display: flex;
+    justify-content: space-between;
+}
+.all1
+{
+    display: flex;
+}
+.content2
+{
+    margin-left: 16%;
+}
+.all2
+{
+    display: flex;
+    padding-right: 20px;
+}
+.all2 div
+{
+    padding-right: 30px;
+}
+.all1 div
+{
+    margin-right: 50px;
+}
+.d-flex
+{
+    width: 200px;
+}
+.d-flex1
+{
+    display: flex;
+}
+.allCategory
+{
+    margin-left: 16%;
+}
