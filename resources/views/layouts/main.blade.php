@@ -17,21 +17,23 @@
                 <ul class="navcontent">
                     <li><img src="/LOGO.webp" alt="not found" width="180px"></li>
                     <li><a href="/dashboard">Overview</a></li>
-                    <li><a href="{{ route ('users') }}">Users</a></li>
-                    <li><a href="{{ route ('categories') }}">Categories</a></li>
-                    <li><a href="{{ route ('courses') }}">Courses</a></li>
+                    <li><a href=" {{ route ('users') }} ">Users</a></li>
+                    <li><a href=" {{ route ('categories') }} ">Categories</a></li>
+                    <li><a href=" {{ route ('courses') }} ">Courses</a></li>
                     <li>Reports</li>
                 </ul>
             </div>
             <div class="index">
-                <div class="dropdown">   
-                    <button class="btn btn-secondary dropdown-toggle" id="superAdminButton" type="button" data-bs-toggle="dropdown">
-                        {{ Auth::user()->first_name}}
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="">Account & Settings</a></li>
-                        <li><a class="dropdown-item" href="{{ route ('Auth.logout') }}">Logout</a></li>
-                    </ul>
+                <div class="content1nav">
+                    <div class="dropdown">   
+                        <button class="btn btn-secondary dropdown-toggle" id="superAdminButton" type="button" data-bs-toggle="dropdown">
+                             {{  Auth::user()->first_name }} 
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="">Account & Settings</a></li>
+                            <li><a class="dropdown-item" href=" {{ route ('Auth.logout') }} ">Logout</a></li>
+                        </ul>
+                    </div>
                 </div>
                 @yield('content')
             </div>

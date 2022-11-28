@@ -14,28 +14,28 @@
                 Account Login
             </h1>
             @if (session('error'))
-            <span>{{session('error')}}</span>
+            <span> {{ session('error') }} </span>
             @endif
-            <form action="{{ route ('Auth.userAuthentication') }}" method="post">
+            <form action=" {{  route ('Auth.userAuthentication')  }} " method="post">
                 @csrf
                 <div class="formStyle">
                     <label for="">Email</label>
                     <input type="text" name="email" id="" required>
                     <span class="errorMessage">
                         @error('email')
-                        {{$message}}     
+                         {{ $message }}      
                         @enderror
                     </span>
                     <label for="">Password</label>
                     <input type="password" name="password" id="" required>
                     <span class="errorMessage">
                         @error('password')
-                        {{$message}}     
+                         {{ $message }}      
                         @enderror
                     </span>
                     <div>
                         <input type="checkbox" name="" id=""> Remember me
-                        <a href="{{ route('resetPassword') }}">forget password ?</a>
+                        <a href=" {{  route('resetPassword')  }} ">forget password ?</a>
                     </div>
                     <input type="submit" name="login" id="" value="Log in"> 
                 </div>

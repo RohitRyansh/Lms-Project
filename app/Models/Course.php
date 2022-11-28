@@ -88,6 +88,21 @@ class Course extends Model
         
         return $query->where('user_id', Auth::id());
     }
+
+    public function scopeActive($query) {
+
+        return $query->where('category_id', Category::visibleTo(Auth::user())
+                                                        ->active()
+                                                        ->pluck('id')
+                                                        ->toArray()
+                                                    );
+    }
+
+    public function scopePublished($query) {
+        
+        return $query->where('status_id', status::PUBLISHED);
+    }
+
 }
 
 

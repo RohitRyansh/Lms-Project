@@ -4,12 +4,16 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Category\CategoryController;
 use App\Http\Controllers\Category\CategoryStatusController as CategoryCategoryStatusController;
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\CourseEnrollmentController;
+use App\Http\Controllers\CourseStatusController;
+use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\EnrollmentController;
 use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\SetPasswordController;
 use App\Http\Controllers\UnitController;
 use App\Http\Controllers\users\UserController;
 use App\Http\Controllers\Users\UserStatusController as UsersUserStatusController;
+use App\Models\Role;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -17,15 +21,15 @@ Route::get('/', function () {
 
     if (Auth::check()) {
 
-        if (Auth::user()->is_employee) {
+        if (Auth::user()->role_id == Role::EMPLOYEE) {
 
-            return redirect('/courses.index');
+            return to_route ('employee.index');
         }
-
-        return redirect('/dashboard');
+        
+        return redirect ('/dashboard');
     }
 
-    return to_route('login');
+    return to_route ('login');
 });
 
 Route::middleware('guest')->group(function () {
@@ -106,10 +110,9 @@ Route::controller(UnitController::class)->group(function() {
 
     Route::delete('/courses/{course:slug}/unit/{unit}/delete', 'delete')->name('units.delete');
 
-
 });
 
-Route::controller(EnrollmentController::class)->group(function() {
+Route::controller(CourseEnrollmentController::class)->group(function() {
 
     Route::get ('/courseEnrollment/{course:slug}/Enroll','index')->name ('enroll.index');
 
@@ -119,11 +122,29 @@ Route::controller(EnrollmentController::class)->group(function() {
 
 });
 
+Route::controller(EnrollmentController::class)->group(function() {
+
+    Route::get ('/userEnrollment/{user:slug}/Enroll','index')->name ('userenroll.index');
+
+    Route::post ('/userEnrollment/store/{user:slug}', 'store')->name ('userenroll.store');
+
+    Route::delete ('/userEnrollment/{user:slug}/Unenroll/{enrolledCourse}', 'delete')->name ('userenroll.delete');
+
+});
+
+Route::controller(EmployeeController::class)->group(function() {
+
+    Route::get ('/employee','index')->name ('employee.index');
+
+});
+
 Route::get ('/logout', [LoginController::class, 'logout'])->name('Auth.logout');
 
 Route::post ('/users/{user}/{status}/active', [UsersUserStatusController::class,'UserStatus'])->name('users.status');
 
 Route::post ('/category/{category}/{status}/active', [CategoryCategoryStatusController::class,'CategoryStatus'])->name('categories.status');
+
+Route::get('/courses/{course}/status', CourseStatusController::class)->name('courses.status');
 
 Route::get ('/set-password/{user:slug}', [SetPasswordController::class,'index'])->name('setpassword.index');
 

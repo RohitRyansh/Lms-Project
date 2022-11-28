@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\users;
 
 use App\Http\Controllers\Controller;
+use App\Models\Course;
 use App\Models\Role;
 use App\Models\User;
 use App\Notifications\SetPasswordNotification;
@@ -14,7 +15,7 @@ use Illuminate\Validation\Rule;
 class UserController extends Controller
 {
     public function index() {
-
+  
         return view ('users.index', [
             'users' => User::visibleto(Auth::user())
             ->latest()
@@ -25,14 +26,14 @@ class UserController extends Controller
                         'newest'
                         ]))
                 ->simplePaginate(4), 
-            'roles' => Role::allrole()        
+            'roles' => Role::allrole()->get(),
         ]);
     }
 
     public function create() {
 
         return view ('users.create', [
-            'roles' => Role::allrole()
+            'roles' => Role::allrole()->get()
         ]);
     }
 
@@ -47,6 +48,7 @@ class UserController extends Controller
                 Rule::in(Role::allrole()
                 ->pluck('id')
                 ->toArray()
+                ->get()
                 )
             ]
         ]);

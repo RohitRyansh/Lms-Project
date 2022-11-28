@@ -6,12 +6,12 @@
             <h2>Categories</h2>
         </div>
         <div class="nav1">
-            <button type="button" class="btn btn-primary"><a href="{{route('categories.create')}}" class="createButtons">Create Category</a></button> 
+            <button type="button" class="btn btn-primary"><a href="  {{  route('categories.create')  }}  " class="createButtons">Create Category</a></button> 
         </div>
     </div>
     <div class="allCategory">
         <div class="all">
-            <form action="{{ route('categories') }}?{{ request()->getQueryString() }}" method="get">
+            <form action="  {{   route('categories')   }}?{{   request()->getQueryString()   }}  " method="get">
                 <div class="d-flex">
                     <input class="form-control" type="text" name="search" placeholder="Search by Name">
                     <i class="bi bi-search"></i>
@@ -23,14 +23,14 @@
                         Latest Created Date
                     </button>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="{{route('categories')}}?newest=latest">Newest</a></li>
-                        <li><a class="dropdown-item" href="{{route('categories')}}">Oldest</a></li>
+                        <li><a class="dropdown-item" href="  {{  route('categories')  }}?newest=latest">Newest</a></li>
+                        <li><a class="dropdown-item" href="  {{  route('categories')  }}  ">Oldest</a></li>
                     </ul>
                 </div>
             </div>
         </div>
         @if (session('success'))
-            <p class="succesmessage">{{session('success')}}</p>
+            <p class="succesmessage">  {{  session('success')  }}  </p>
         @endif
         @if ($categories->count()>0)
         <table class="table">
@@ -44,20 +44,20 @@
             </tr>
             @foreach($categories as $category)
             <tr>
-                <td>{{$category->name}}</td>
-                <td>{{$category->created_by}}</td>
-                <td></td>
-                <td></td>
+                <td>  {{  $category->name  }}  </td>
+                <td>  {{  $category->user->first_name  }}  </td>
+                <td>  {{  $category->courses->count()  }}  </td>
+                <td>  {{  $category->created_at  }}  </td>
                 <td>
                     @if($category->status)
-                        <form action="{{ route('categories.status', ['category'=> $category,'status'=> 0]) }}" method="POST">
+                        <form action="  {{   route('categories.status', ['category'=> $category,'status'=> 0])   }}  " method="POST">
                             @csrf
                             <span class="badge text-bg-success">
                                 <input type="submit" name="Active" value="Active" class="active">
                             </span>
                         </form>
                     @else
-                        <form action="{{ route('categories.status', ['category'=> $category,'status'=> 1]) }}" method="POST">
+                        <form action="  {{   route('categories.status', ['category'=> $category,'status'=> 1])   }}  " method="POST">
                             @csrf
                             <span class="badge text-bg-danger">
                                 <input type="submit" name="Deactive" value="Deactive" class="active">
@@ -74,13 +74,13 @@
                             <li class="drop-items">
                                 <div class="drop-items-icon">
                                     <i class="bi bi-wrench-adjustable"></i>
-                                    <a href="{{ route('categories.edit', $category) }}">Edit Category</a>
+                                    <a href="  {{   route('categories.edit', $category)   }}  ">Edit Category</a>
                                 </div>
                             </li>
                             <li class="drop-items">
                                 <div class="drop-items-icon">
                                     <i class="bi bi-wrench-adjustable"></i>
-                                    <form action="{{route('categories.delete', $category)}}" method="post">
+                                    <form action="  {{  route('categories.delete', $category)  }}  " method="post">
                                         @csrf
                                         @method('delete')
                                         <input type="submit" value="delete" class="deletebuttons">

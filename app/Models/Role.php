@@ -19,8 +19,8 @@ class Role extends Model
         'slug',
     ];
 
-    public function scopeAllRole() {
+    public function scopeAllRole($query) {
         
-        return Role::where('slug','!=','admin')->get();
+        return $query->where('id', '!=' , Role::ADMIN);
     }
 }

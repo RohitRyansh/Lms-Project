@@ -16,6 +16,7 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable, Sluggable, SoftDeletes;
 
+    CONST ACTIVE = 1;
     protected $fillable = [
         'first_name',
         'last_name',
@@ -29,14 +30,6 @@ class User extends Authenticatable
         'email_status',
     ];
 
-    public function sluggable(): array {
-
-        return [
-            'slug' => [
-                'source' => ['first_name', 'last_name']
-        ]];
-    }
-   
     protected $hidden = [
         'password',
         'remember_token',
@@ -45,6 +38,14 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function sluggable(): array {
+
+        return [
+            'slug' => [
+                'source' => ['first_name', 'last_name']
+        ]];
+    }
 
     public function role() {
         
@@ -112,6 +113,7 @@ class User extends Authenticatable
 
     public function scopeEmployee($query) {
         
-        return $query->where('role_id',3);
+        return $query->where('role_id', Role::EMPLOYEE);
     }
+
 }

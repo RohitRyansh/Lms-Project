@@ -19,14 +19,17 @@ class CourseController extends Controller
             'categories' => Category::visibleto(Auth::user())
             ->active()
             ->get(),
-            'courses' => Course::latest()->search (
-                request ([
-                    'search',
-                    'level',
-                    'category'
-                    ]))
-                    ->visibleto(Auth::user())
-                    ->get(),
+            'courses' => Course::latest()
+                                ->visibleto(Auth::user())
+                                ->active()
+                                ->search (
+                                    request ([
+                                        'search',
+                                        'level',
+                                        'category'
+                                        ]))
+                                        ->get(),
+            'statuses' => status::get()
 
         ]);
     }
@@ -50,6 +53,7 @@ class CourseController extends Controller
                 'category_id' => ['required',
                 Rule::in(Category::active()
                     ->visibleto(Auth::user())
+                    ->active()
                     ->get()
                     ->pluck('id')
                     ->toArray()
@@ -59,7 +63,7 @@ class CourseController extends Controller
 
         $attributes += [
 
-            'status_id' => status::PUBLISHED,
+            'status_id' => status::DRAFT,
             'user_id' => Auth::id()
         ];
 
@@ -71,7 +75,7 @@ class CourseController extends Controller
 
     public function view(Course $course) {
 
-        return view('courses.view', [
+        return view ('courses.view', [
             'course' => $course
         ]);
     }

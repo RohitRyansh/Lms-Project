@@ -19,17 +19,22 @@ class Category extends Model
         'created_by'
     ];
 
-    public function user()
-    {
-        return $this->belongsTo(User::class, 'created_by');
-    }
-
     public function sluggable(): array {
         return [
             'slug' => [
                 'source' => 'name'
             ]   
         ];
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'created_by');
+    }
+
+    public function courses() {
+
+        return $this->hasMany(Course::class);
     }
 
     public function scopeSearch($query,array $filter) {

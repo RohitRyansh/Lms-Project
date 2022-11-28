@@ -11,32 +11,29 @@ use Illuminate\Validation\Rule;
 
 class EnrollmentController extends Controller
 {
-    public function index(Course $course) {
+    public function index(User $user) {
 
-        $users = User::active()
-                        ->employee()
-                        ->visibleto(Auth::user())
-                        ->whereDoesntHave('enrollments', function (Builder $query) use($course) {
-                            $query->where('course_id', $course->id);
+        $courses = Course::visibleto(Auth::user())
+                        ->published()
+                        ->whereDoesntHave('enrollments', function (Builder $query) use($user) {
+                            $query->where('user_id', $user->id);
                         })
                         ->get();
-
-        return view ('enrollments.index', [
-            'users' => $users,
-            'course' => $course,
-            'enrolledUsers' => $course->enrollments()->get()  
+        return view ('enrollments.enrollCourse', [
+            'user' => $user,
+            'courses' => $courses,
+            'enrolledCourses' => $user->enrollments()->get()  
         ]);
     }
 
-    public function store(Request $request, Course $course) {
+    public function store(Request $request, User $user) {
 
         $attributes = $request->validate ([
-            'user_ids' => ['required',
-            Rule::in(User::active()
-                ->employee()
-                ->visibleto(Auth::user())
-                ->whereDoesntHave('enrollments', function (Builder $query) use($course) {
-                    $query->where('course_id', $course->id);
+            'courseIds' => ['required',
+            Rule::in(Course::visibleto(Auth::user())
+                ->published()
+                ->whereDoesntHave('enrollments', function (Builder $query) use($user) {
+                    $query->where('user_id', $user->id);
                 })
                 ->get()
                 ->pluck('id')
@@ -44,16 +41,16 @@ class EnrollmentController extends Controller
             )],  
         ]);
 
-        $course->enrollments()->attach($attributes['user_ids']);
+        $user->enrollments()->attach($attributes['courseIds']);
 
-        return back();
+        return back()->with('success', 'Course Enrolled Successfully');
     }
 
-    public function delete(Course $course, User $enrolledUser) {
+    public function delete(User $user, Course $enrolledCourse) {
 
-        $course->enrollments()->detach($enrolledUser->id);
+        $user->enrollments()->detach($enrolledCourse->id);
 
-        return back();
+        return back()->with('success', 'Course Unenrolled Successfully');;
         
     }
 }

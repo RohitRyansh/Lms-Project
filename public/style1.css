@@ -57,6 +57,7 @@ a
     background-color: darkblue;
     height: 100vh;
     width: 280px;
+    position: fixed;
 }
 .dashboard
 {
@@ -128,8 +129,8 @@ a
     text-align: right;
     height: 10vh;
     padding: 17px 0;
-    margin-right: 20px;
     background-color: lightcyan;
+    margin-left: 19%;
 }
 .courses
 {
@@ -414,4 +415,8 @@ div.drop-items-icon a
 .h4
 {
     margin-top: 0;
+}
+.enrollments
+{
+    text-align: left;
 }
