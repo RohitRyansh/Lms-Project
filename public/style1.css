@@ -116,6 +116,13 @@ a
     background-color: lightgreen;
     text-align: left;
 }
+.dangermessage
+{
+    color: rgb(26, 2, 2);
+    padding: 20px;
+    background-color: lightcoral;
+    text-align: left;
+}
 .deletebuttons
 {
     background: none;
@@ -418,5 +425,5 @@ div.drop-items-icon a
 }
 .enrollments
 {
-    text-align: left;
+    text-align: right;
 }

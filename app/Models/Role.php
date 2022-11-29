@@ -11,8 +11,8 @@ class Role extends Model
     
     CONST ADMIN=1;
     CONST SUB_ADMIN=2;
-    CONST EMPLOYEE=3;
-    CONST TRAINER=4;
+    CONST TRAINER=3;
+    CONST EMPLOYEE=4;
     
     protected $fillable = [
         'name',
@@ -23,4 +23,5 @@ class Role extends Model
         
         return $query->where('id', '!=' , Role::ADMIN);
     }
+
 }

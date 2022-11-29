@@ -17,7 +17,7 @@ class LoginController extends Controller
     public function userAuthentication(Request $request) {
         
         $attributes=$request->validate ([   
-            'email' =>  'required|email:rfs,dns',
+            'email' =>  'required|email',
             'password' => 'required|min:8'
         ]);
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Course;
+use App\Models\CourseImage;
 use App\Models\level;
 use App\Models\status;
 use Illuminate\Http\Request;
@@ -19,18 +20,17 @@ class CourseController extends Controller
             'categories' => Category::visibleto(Auth::user())
             ->active()
             ->get(),
-            'courses' => Course::latest()
-                                ->visibleto(Auth::user())
+            'courses' => Course::visibleto(Auth::user())
                                 ->active()
                                 ->search (
                                     request ([
                                         'search',
                                         'level',
-                                        'category'
+                                        'category',
+                                        'newest'
                                         ]))
-                                        ->get(),
+                                ->get(),
             'statuses' => status::get()
-
         ]);
     }
 
@@ -57,9 +57,11 @@ class CourseController extends Controller
                     ->get()
                     ->pluck('id')
                     ->toArray()
-                )
-            ],
-        ]);
+                    ),
+                ],
+                'image_path' => 'mimes:png,jpg,jpeg'
+            ]
+        );
 
         $attributes += [
 
@@ -67,7 +69,16 @@ class CourseController extends Controller
             'user_id' => Auth::id()
         ];
 
-        Course::create($attributes);
+        $image = $request
+            ->file('image_path')
+            ->store('/images');
+
+        $course = Course::create($attributes);
+
+        CourseImage::create ([
+            'image_path' => $image,
+            'course_id' => $course->id
+            ]);
          
         return to_route ('courses')
             ->with('success', 'Course Created Successfully.');

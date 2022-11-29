@@ -6,12 +6,12 @@
             <h2>Categories</h2>
         </div>
         <div class="nav1">
-            <button type="button" class="btn btn-primary"><a href="  {{  route('categories.create')  }}  " class="createButtons">Create Category</a></button> 
+            <button type="button" class="btn btn-primary"><a href=" {{  route('categories.create') }} " class="createButtons">Create Category</a></button> 
         </div>
     </div>
     <div class="allCategory">
         <div class="all">
-            <form action="  {{   route('categories')   }}?{{   request()->getQueryString()   }}  " method="get">
+            <form action="  {{ route('categories')}}?{{request()->getQueryString() }}" method="get">
                 <div class="d-flex">
                     <input class="form-control" type="text" name="search" placeholder="Search by Name">
                     <i class="bi bi-search"></i>
@@ -23,8 +23,8 @@
                         Latest Created Date
                     </button>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="  {{  route('categories')  }}?newest=latest">Newest</a></li>
-                        <li><a class="dropdown-item" href="  {{  route('categories')  }}  ">Oldest</a></li>
+                        <li><a class="dropdown-item" href=" {{ route('categories')}}?newest=latest">Newest</a></li>
+                        <li><a class="dropdown-item" href=" {{ route('categories')}} ">Oldest</a></li>
                     </ul>
                 </div>
             </div>
@@ -50,7 +50,7 @@
                 <td>  {{  $category->created_at  }}  </td>
                 <td>
                     @if($category->status)
-                        <form action="  {{   route('categories.status', ['category'=> $category,'status'=> 0])   }}  " method="POST">
+                        <form action="  {{ route('categories.status', ['category'=> $category,'status'=> 0])   }}  " method="POST">
                             @csrf
                             <span class="badge text-bg-success">
                                 <input type="submit" name="Active" value="Active" class="active">

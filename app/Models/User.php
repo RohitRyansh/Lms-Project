@@ -17,6 +17,7 @@ class User extends Authenticatable
     use HasApiTokens, HasFactory, Notifiable, Sluggable, SoftDeletes;
 
     CONST ACTIVE = 1;
+    
     protected $fillable = [
         'first_name',
         'last_name',
@@ -65,19 +66,19 @@ class User extends Authenticatable
     public function enrollments() {
 
         return $this->belongsToMany(Course::class)
-        ->withPivot('id')
-        ->withTimestamps()
-        ->using(CourseUser::class);  
+            ->withPivot('id')
+            ->withTimestamps()
+            ->using(CourseUser::class);  
     }
 
     public function getIsTrainerAttribute() {
 
-        $this->role_id == Role::TRAINER;
+        return $this->role_id == Role::TRAINER;
     }
 
     public function getIsEmployeeAttribute() {
 
-        $this->role_id == Role::EMPLOYEE;
+        return $this->role_id == Role::EMPLOYEE;
     }
 
     public function scopeSearch($query, array $filter) {

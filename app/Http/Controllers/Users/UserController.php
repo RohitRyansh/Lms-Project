@@ -18,7 +18,6 @@ class UserController extends Controller
   
         return view ('users.index', [
             'users' => User::visibleto(Auth::user())
-            ->latest()
                 ->search (
                     request ([
                         'search',
@@ -42,15 +41,15 @@ class UserController extends Controller
        $attributes = $request->validate ([   
             'first_name' =>  'required|string|min:3|max:255',
             'last_name' => 'required|string|min:1|max:255',
-            'email' => 'required|email:rfs,dns|unique:users',
+            'email' => 'required|email',
             'phone_no' => 'required|numeric|digits:10',
             'role_id' => 'required',[
                 Rule::in(Role::allrole()
+                ->get()
                 ->pluck('id')
                 ->toArray()
-                ->get()
                 )
-            ]
+            ],  
         ]);
 
         $attributes += [
@@ -58,9 +57,24 @@ class UserController extends Controller
             'created_by' => Auth::id()
         ];
 
-        $user = User::create($attributes);
+        $user = User::where('first_name', $attributes['first_name'])
+            ->withTrashed()
+            ->first();
 
-        if($user) { 
+        if ($user) {
+            
+            if ($user->deleted_at != null) {
+
+                $user->restore();
+                $user->update($attributes);
+            }
+            
+        } else {
+
+            $user = User::create($attributes);
+        }
+
+        if ($user) { 
 
             Notification::send($user, new SetPasswordNotification(Auth::user()));
 

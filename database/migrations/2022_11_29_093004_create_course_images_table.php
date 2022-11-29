@@ -13,13 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('categories', function (Blueprint $table) {
-            $table->id()->autoIncrement();
-            $table->string('name');
-            $table->string('slug');
-            $table->boolean('status')->default(0);
-            $table->integer('created_by');
-            $table->softDeletes();
+        Schema::create('course_images', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('course_id')->constrained()->cascadeOnDelete();
+            $table->text('image_path');
             $table->timestamps();
         });
     }
@@ -31,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('category');
+        Schema::dropIfExists('course_images');
     }
 };

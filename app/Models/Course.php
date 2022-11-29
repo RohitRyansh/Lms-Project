@@ -34,6 +34,11 @@ class Course extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function images()
+    {
+        return $this->hasOne(CourseImage::class);
+    }
+
     public function category() {
         
         return $this->belongsTo(Category::class);
@@ -81,7 +86,13 @@ class Course extends Model
 
             return $query
                 ->where('level_id', $search);
-        });   
+        }); 
+        
+        $query->when($filter['newest'] ?? false, function($query) {
+
+            return $query
+                ->orderby('created_at','desc');
+        });
     }
 
     public function scopeVisibleTo($query) {
@@ -91,7 +102,7 @@ class Course extends Model
 
     public function scopeActive($query) {
 
-        return $query->where('category_id', Category::visibleTo(Auth::user())
+        return $query->whereIn('category_id', Category::visibleTo(Auth::user())
                                                         ->active()
                                                         ->pluck('id')
                                                         ->toArray()
@@ -102,7 +113,6 @@ class Course extends Model
         
         return $query->where('status_id', status::PUBLISHED);
     }
-
 }
 
 

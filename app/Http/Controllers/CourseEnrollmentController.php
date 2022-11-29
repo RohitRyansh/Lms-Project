@@ -30,16 +30,19 @@ class CourseEnrollmentController extends Controller
     public function store(Request $request, Course $course) {
 
         $attributes = $request->validate ([
-            'userIds' => ['required',
-            Rule::in(User::active()
-                ->employee()
-                ->visibleto(Auth::user())
-                ->whereDoesntHave('enrollments', function (Builder $query) use($course) {
-                    $query->where('course_id', $course->id);
-                })
-                ->get()
-                ->pluck('id')
-                ->toArray()
+            'userIds' => [
+                'required',
+                'array',
+                'min:1',
+                Rule::in(User::active()
+                    ->employee()
+                    ->visibleto(Auth::user())
+                    ->whereDoesntHave('enrollments', function (Builder $query) use($course) {
+                        $query->where('course_id', $course->id);
+                    })
+                    ->get()
+                    ->pluck('id')
+                    ->toArray()
             )],  
         ]);
 
@@ -52,7 +55,7 @@ class CourseEnrollmentController extends Controller
 
         $course->enrollments()->detach($enrolledUser->id);
 
-        return back()->with('success', 'User Unenrolled Successfully');;
+        return back()->with('unsuccess', 'User Unenrolled Successfully');;
         
     }
 }

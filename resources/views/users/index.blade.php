@@ -11,7 +11,7 @@
         </div>
     </div>
     <div class="allUser">
-        <form action=" {{  route('users')  }}?{{ request()->getQueryString() }} " method="get">
+        <form action=" {{  route('users')}}?{{ request()->getQueryString() }} " method="get">
             <div class="d-flex">
                 <input class="form-control" type="text" name="search" placeholder="Search by Name">
                 <i class="bi bi-search"></i>
@@ -23,8 +23,8 @@
                     Latest Created Date
                 </button>
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href=" {{ route('users') }}?newest=latest">Newest</a></li>
-                    <li><a class="dropdown-item" href=" {{ route('users') }} ">Oldest</a></li>
+                    <li><a class="dropdown-item" href=" {{ route('users')}}?newest=latest">Newest</a></li>
+                    <li><a class="dropdown-item" href=" {{ route('users')}}">Oldest</a></li>
                 </ul>
             </div>
             <button class="btn btn-secondary dropdown-toggle"  id="dropdownMenuButton1" type="button" data-bs-toggle="dropdown">
@@ -33,7 +33,7 @@
             <ul class="dropdown-menu menu">
                 @foreach( $roles as  $role)
                 <li>
-                    <a class="dropdown-item" href=" {{  route('users')  }}?role={{  $role->id }} "> {{  $role->name }} </a>
+                    <a class="dropdown-item" href=" {{ route('users')}}?role={{ $role->id }}">{{ $role->name }} </a>
                 </li>
                 @endforeach
             </ul>  
@@ -42,8 +42,11 @@
     @if (session('success'))
         <p class="succesmessage"> {{ session('success') }} </p>
     @endif
+    @if (session('unsuccess'))
+        <p class="dangermessage"> {{ session('unsuccess') }} </p>
+    @endif
     <div class="content2">
-        @if ( $users->count()>0)
+        @if ($users->count()>0)
         <table class="table">
             <tr class="table-heading">
                 <th>User Name</th>
@@ -53,16 +56,16 @@
                 <th>Status</th>
                 <th></th>
             </tr>
-                @foreach( $users as  $user)
+                @foreach ($users as  $user)
                 <tr>
-                    <td class="table-data"> {{  $user->first_name }}   {{  $user->last_name }} 
-                        <br> {{  $user->email }} </td>
-                        <td> {{  $user->role->name }} </td>
-                        <td> {{  $user->enrollments->count() }} </td>
-                        <td> {{  $user->created_at }} </td>
+                    <td class="table-data"> {{ $user->first_name }}   {{ $user->last_name }} 
+                        <br> {{ $user->email }} </td>
+                        <td> {{ $user->role->name }} </td>
+                        <td> {{ $user->enrollments->count() }} </td>
+                        <td> {{ $user->created_at }} </td>
                         <td>
                             @if( $user->status)
-                            <form action=" {{  route('users.status', ['user'=>  $user,'status'=> 0])  }} " method="POST">
+                            <form action=" {{ route('users.status', ['user'=>  $user,'status'=> 0])  }} " method="POST">
                                 @csrf
                                 <span class="badge text-bg-success">
                                     <input type="submit" name="Active" value="Active" class="active">
@@ -87,21 +90,21 @@
                                 <li class="drop-items">
                                     <div class="drop-items-icon">
                                         <i class="bi bi-wrench-adjustable"></i>
-                                        <a href=" {{  route('users.edit',  $user) }} ">Edit User</a>
+                                        <a href=" {{  route('users.edit', $user) }} ">Edit User</a>
                                     </div>
                                 </li>
 
                                 <li class="drop-items">
                                     <div class="drop-items-icon">
                                         <i class="bi bi-people-fill"></i>
-                                        <a href=" {{  route('userenroll.index',  $user) }} ">Courses</a>                                    
+                                        <a href=" {{  route('userenroll.index', $user) }} ">Courses</a>                                    
                                     </div>
                                 </li>
 
                                 <li class="drop-items">
                                     <div class="drop-items-icon">
                                         <i class="bi bi-wrench-adjustable"></i>
-                                        <form action=" {{ route('users.delete',  $user) }} " method="post">
+                                        <form action=" {{ route('users.delete', $user) }} " method="post">
                                             @csrf
                                             @method('delete')
                                             <input type="submit" value="Delete" class="deletebuttons">

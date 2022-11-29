@@ -40,7 +40,21 @@ class CategoryController extends Controller
             'created_by' => Auth::id()
         ];
 
-        Category::create($attributes);
+        $category = Category::where('name', $attributes['name'])
+            ->withTrashed()
+            ->first();
+
+        if ($category) {
+
+            if ($category->deleted_at != null) {
+
+                $category->restore();
+                $category->update($attributes);
+            }
+        } else {
+
+            Category::create($attributes);
+        }
         
         if ($request['create'] == 'create') {  
 

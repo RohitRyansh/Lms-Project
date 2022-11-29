@@ -8,7 +8,7 @@
         </ol>
     </nav>
     <div class="courses1">
-        <form action=" {{  route ('courses.store')  }} " method="post" class="CourseCreate">
+        <form action=" {{  route ('courses.store')  }} " method="post" class="CourseCreate" enctype="multipart/form-data">
             @csrf
 
             <label for="exampleFormControlInput1" class="form-label">What Will Be The Course Name?</label>
@@ -40,6 +40,7 @@
                     <option value=" {{ $level['id'] }} "> {{ $level['name'] }} </option>
                 @endforeach
             </select> 
+            <input type="file" name="image_path">
             <input type="submit" value="CreateCourse" name="submit">
         </form>
     </div>

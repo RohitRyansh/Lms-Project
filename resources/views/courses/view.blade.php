@@ -67,9 +67,9 @@
             </div>
         </div>
         <div> 
-            <a href=" {{  route('units.edit',['course'=>$course,'unit'=>$unit])  }} " class="unit-edit"><i class="bi bi-pencil-square"></i> Edit Section</a>
+            <a href=" {{  route('units.edit',['course' => $course, 'unit' => $unit])  }} " class="unit-edit"><i class="bi bi-pencil-square"></i> Edit Section</a>
             
-            <form action=" {{ route('units.delete', ['course'=>$course,'unit'=>$unit]) }} " method="post">
+            <form action=" {{ route('units.delete', ['course' => $course, 'unit' => $unit]) }} " method="post">
                 @csrf
                 @method('delete')
                 <input type="submit" value="delete" class="btn btn-outline-danger btn-sm">

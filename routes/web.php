@@ -20,12 +20,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
 
     if (Auth::check()) {
-
-        if (Auth::user()->role_id == Role::EMPLOYEE) {
-
+        if (Auth::user()->is_employee) {
+            
             return to_route ('employee.index');
         }
-        
+         
         return redirect ('/dashboard');
     }
 
@@ -144,7 +143,7 @@ Route::post ('/users/{user}/{status}/active', [UsersUserStatusController::class,
 
 Route::post ('/category/{category}/{status}/active', [CategoryCategoryStatusController::class,'CategoryStatus'])->name('categories.status');
 
-Route::get('/courses/{course}/status', CourseStatusController::class)->name('courses.status');
+Route::get('/courses/{course}/status', [CourseStatusController::class, 'CourseStatus'])->name('courses.status');
 
 Route::get ('/set-password/{user:slug}', [SetPasswordController::class,'index'])->name('setpassword.index');
 

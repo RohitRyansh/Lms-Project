@@ -30,12 +30,12 @@ class DatabaseSeeder extends Seeder
             'slug' => 'sub-admin'
         ]);
         Role::create([
-            'name' => 'Employee',
-            'slug' => 'employee'
-        ]);
-        Role::create([
             'name' => 'Trainee',
             'slug' => 'trainee'
+        ]);
+        Role::create([
+            'name' => 'Employee',
+            'slug' => 'employee'
         ]);
 
         User::create([
