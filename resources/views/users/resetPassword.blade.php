@@ -1,26 +1,35 @@
-@extends('layouts.main')
-
-@section('content')
-    
-    <form action="{{ route('resetPassword.store'), $user}}" method="post">
+{{-- @extends('layouts.main')
+@section('content') --}}
+   
+{{-- @endsection --}}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>forget Password Page</title>
+</head>
+<body>
+    <div class="create">
+    <form action="{{ route('forgetPassword.store') }}" method="post" class="Edit">
         @csrf
-        <h1>Reset Password</h1>
-        <label for="password">Password</label>
-        <input type="password" name="password">
+        <label for="Password">Password</label>
+        <input type="password" name="password" id="">
         <span class="errorMessage">
             @error('password')
-                {{$message}}
+            {{$message}}     
             @enderror
         </span>
-
-        <label for="confirm-password">Confirm Password</label>
-        <input type="password" name="confirm-password">
+        <label for="ConfirmPassword">Confirm Password</label>
+        <input type="password" name="ConfirmPassword" id="">
         <span class="errorMessage">
-            @error('confirm-password')
-                {{$message}}
+            @error('ConfirmPassword')
+            {{$message}}     
             @enderror
         </span>
-        
-            <input type="submit" value="Reset" name="submit">
+        <input type="submit" value="Change Password">
     </form>
-@endsection
+    </div>
+</body>
+</html>

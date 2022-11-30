@@ -15,32 +15,33 @@ class CourseController extends Controller
 {
     public function index() {
 
-        return view ('courses.index', [
+        return view ('trainer.courses.index', [
             'levels' => level::get(),
             'categories' => Category::visibleto(Auth::user())
-            ->active()
-            ->get(),
-            'courses' => Course::visibleto(Auth::user())
-                                ->active()
-                                ->search (
-                                    request ([
-                                        'search',
-                                        'level',
-                                        'category',
-                                        'newest'
-                                        ]))
-                                ->get(),
+                ->active()
+                ->get(),
+            'courses' => Course::latest()
+                ->visibleto(Auth::user())
+                ->active()
+                ->search (
+                    request ([
+                        'search',
+                        'level',
+                        'category',
+                        'newest'
+                        ]))
+                ->get(),
             'statuses' => status::get()
         ]);
     }
 
     public function create() {
 
-        return view ('courses.create', [
+        return view ('trainer.courses.create', [
             'levels' =>  level::get(),
             'categories' => Category::visibleto(Auth::user())
-            ->active()
-            ->get(),
+                ->active()
+                ->get(),
         ]);
     }
 
@@ -64,7 +65,6 @@ class CourseController extends Controller
         );
 
         $attributes += [
-
             'status_id' => status::DRAFT,
             'user_id' => Auth::id()
         ];
@@ -86,14 +86,14 @@ class CourseController extends Controller
 
     public function view(Course $course) {
 
-        return view ('courses.view', [
+        return view ('trainer.courses.view', [
             'course' => $course
         ]);
     }
 
     public function edit(Course $course) {
 
-        return view ('courses.edit', [
+        return view ('trainer.courses.edit', [
             'course' => $course,
             'levels' => level::get(),
             'categories' => Category::visibleto(Auth::user())

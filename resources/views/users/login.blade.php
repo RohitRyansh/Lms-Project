@@ -14,7 +14,10 @@
                 Account Login
             </h1>
             @if (session('error'))
-            <span> {{ session('error') }} </span>
+                <span> {{ session('error') }} </span>
+            @endif
+            @if (session('status'))
+                <p class="succesmessage"> {{ session('status') }} </p>
             @endif
             <form action=" {{  route ('Auth.userAuthentication')  }} " method="post">
                 @csrf
@@ -35,7 +38,7 @@
                     </span>
                     <div>
                         <input type="checkbox" name="" id=""> Remember me
-                        <a href=" {{  route('resetPassword')  }} ">forget password ?</a>
+                        <a href=" {{ route('forgetPassword') }} ">forget password ?</a>
                     </div>
                     <input type="submit" name="login" id="" value="Log in"> 
                 </div>

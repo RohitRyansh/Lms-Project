@@ -72,7 +72,7 @@
                                 </span>
                         </form>
                         @else
-                        <form action=" {{  route('users.status', ['user'=>  $user,'status'=> 1])  }} " method="POST">
+                        <form action=" {{  route('users.status', ['user'=>  $user,'status'=> 1]) }} " method="POST">
                             @csrf
                             <span class="badge text-bg-danger">
                                 <input type="submit" name="Deactive" value="Deactive" class="active">

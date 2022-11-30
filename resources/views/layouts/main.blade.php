@@ -16,11 +16,15 @@
             <div class="content1">
                 <ul class="navcontent">
                     <li><img src="/LOGO.webp" alt="not found" width="180px"></li>
+                    @if (Auth::user()->is_employee)
+                    <li><a href="" class="navlink">Courses</a></li>   
+                    @else   
                     <li><a href="/dashboard">Overview</a></li>
-                    <li><a href=" {{ route ('users') }} ">Users</a></li>
-                    <li><a href=" {{ route ('categories') }} ">Categories</a></li>
-                    <li><a href=" {{ route ('courses') }} ">Courses</a></li>
+                    <li><a href=" {{ route ('users') }} " class="navlink">Users</a></li>
+                    <li><a href=" {{ route ('categories') }} " class="navlink">Categories</a></li>
+                    <li><a href=" {{ route ('courses') }} " class="navlink">Courses</a></li>
                     <li>Reports</li>
+                    @endif
                 </ul>
             </div>
             <div class="index">

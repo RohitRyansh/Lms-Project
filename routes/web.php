@@ -8,12 +8,12 @@ use App\Http\Controllers\CourseEnrollmentController;
 use App\Http\Controllers\CourseStatusController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\EnrollmentController;
+use App\Http\Controllers\ForgetPasswordController;
 use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\SetPasswordController;
 use App\Http\Controllers\UnitController;
 use App\Http\Controllers\users\UserController;
 use App\Http\Controllers\Users\UserStatusController as UsersUserStatusController;
-use App\Models\Role;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -37,9 +37,11 @@ Route::middleware('guest')->group(function () {
 
     Route::post ('/login', [LoginController::class, 'userAuthentication'])->name('Auth.userAuthentication');
 
-    Route::get ('/reset/password', [ResetPasswordController::class, 'index'])->name('resetPassword');
+    Route::get ('/forget/password', [ForgetPasswordController::class, 'index'])->name('forgetPassword');
 
-    Route::post ('/reset/password/{user}', [ResetPasswordController::class, 'store'])->name('resetPassword.store');
+    Route::post ('/forget/password', [ForgetPasswordController::class, 'mailConfirmation'])->name('forgetPassword.mail');
+
+    Route::post ('/forget/password', [ForgetPasswordController::class, 'store'])->name('forgetPassword.store');
 });
 
 Route::middleware('auth')->group(function () {
@@ -57,7 +59,7 @@ Route::controller(UserController::class)->group(function () {
     
     Route::post ('/users/store', 'store')->name ('users.store');
     
-    Route::get ('/users/{user}/edit', 'edit')->name ('users.edit');
+    Route::get ('/users/{user:slug}/edit', 'edit')->name ('users.edit');
     
     Route::post ('/users/{user}/update', 'update')->name ('users.update');
     
@@ -73,9 +75,9 @@ Route::controller(CategoryController::class)->group(function () {
     
     Route::post ('/category/store', 'store')->name ('categories.store');
     
-    Route::get ('/category/{category}/edit', 'edit')->name ('categories.edit');
+    Route::get ('/category/{category:slug}/edit', 'edit')->name ('categories.edit');
     
-    Route::post ('/category/{category}/update', 'update')->name ('categories.update');
+    Route::post ('/category/{category:slug}/update', 'update')->name ('categories.update');
     
     Route::delete ('/category/{category}/delete', 'delete')->name ('categories.delete');
 
@@ -89,7 +91,7 @@ Route::controller(CourseController::class)->group(function () {
     
     Route::post ('/courses/store', 'store')->name ('courses.store');
     
-    Route::get ('/courses/{course}/edit', 'edit')->name ('courses.edit');
+    Route::get ('/courses/{course:slug}/edit', 'edit')->name ('courses.edit');
     
     Route::post ('/courses/{course}/update', 'update')->name ('courses.update');
     

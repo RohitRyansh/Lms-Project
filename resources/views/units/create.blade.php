@@ -12,15 +12,15 @@
         </div>
     </div>
     
-    <form action="  {{  route('units.store',$course) }}" class="create-form" method="POST">
+    <form action=" {{  route('units.store',$course) }}" class="create-form" method="POST">
         @csrf
 
         <div class="mb-3">
             <label for="title" class="form-label">Title</label>
-            <input type="text" name="title" class="form-control form-control-sm" required placeholder="Enter Unit Name" value="  {{ old('title')}}">
+            <input type="text" name="title" class="form-control form-control-sm" required placeholder="Enter Unit Name" value=" {{ old('title')}}">
             <span class="text-danger">
                 @error('title')
-                      {{ $message}}
+                      {{ $message }}
                 @enderror
             </span>
         </div>
@@ -30,7 +30,7 @@
             <textarea name="description" class="form-control form-control-sm" id="" cols="30" rows="5" required placeholder="Description">  {{ old('description')}}</textarea>
             <span class="text-danger">
                 @error('description')
-                  {{ $message}}
+                  {{ $message }}
                 @enderror
             </span>
         </div>

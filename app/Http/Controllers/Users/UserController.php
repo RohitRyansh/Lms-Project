@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\users;
 
 use App\Http\Controllers\Controller;
-use App\Models\Course;
 use App\Models\Role;
 use App\Models\User;
 use App\Notifications\SetPasswordNotification;
@@ -74,18 +73,16 @@ class UserController extends Controller
             $user = User::create($attributes);
         }
 
-        if ($user) { 
+        Notification::send($user, new SetPasswordNotification(Auth::user()));
 
-            Notification::send($user, new SetPasswordNotification(Auth::user()));
+        if ($request['create'] == 'create') {  
 
-            if ($request['create'] == 'create') {  
-
-                return to_route('users')
-                    ->with('success',  'User Created Successfully.');
-            }
-
-            return back()->with('success', 'User Created Successfully.');   
+            return to_route('users')
+                ->with('success',  'User Created Successfully.');
         }
+
+        return back()->with('success', 'User Created Successfully.');   
+
     }
 
     public function edit(User $user) {

@@ -20,7 +20,8 @@ class EnrollmentController extends Controller
                             $query->where('user_id', $user->id);
                         })
                         ->get();
-        return view ('enrollments.enrollCourse', [
+                        
+        return view ('admin.users.courseEnrollment', [
             'user' => $user,
             'courses' => $courses,
             'enrolledCourses' => $user->enrollments()->get()  
@@ -30,11 +31,6 @@ class EnrollmentController extends Controller
     public function store(Request $request, User $user) {
 
         if ($user->is_employee) {
-
-            return to_route('users')
-                            ->with('unsuccess', 'Only Employees can access a course');
-        }
-        else {
 
             $attributes = $request->validate ([
                 'courseIds' => [
@@ -51,11 +47,17 @@ class EnrollmentController extends Controller
                     ->toArray()
                 )],  
             ]);
-            
+                                
             $user->enrollments()->attach($attributes['courseIds']);
             
             return back()->with('success', 'Course Enrolled Successfully');
+
+        } else {
+
+            return to_route('users')
+                ->with('unsuccess', 'Only Employees can access a course');
         }
+
     }
 
     public function delete(User $user, Course $enrolledCourse) {

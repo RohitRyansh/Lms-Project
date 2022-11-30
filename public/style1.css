@@ -18,7 +18,7 @@ body
     display: flex;
     flex-direction: column;
     text-align: left;
-    width: 500px;
+    width: 600px;
     border: 1px solid black;
     padding: 20px;
 }
@@ -82,17 +82,26 @@ a
     color: #fff;
     text-decoration: none;
 }
-.navcontent :hover
+.navcontent
 {
-    color: darkblue;
-    background-color:  rgb(243,244,246);
-    width: 100%;
-    border-radius: 10px;
+    padding-left: 0;
 }
 .content1 ul li
 {
     padding: 30px; 
-    padding-right: 100px;
+}
+.navcontent li:hover
+{
+    color: darkblue;
+    background-color:  rgb(243,244,246);
+    border-radius: 10px;
+    width: 100%;
+}
+.navlink:hover
+{
+    color: darkblue;
+    border-radius: 10px;
+    width: 100%;
 }
 .errorMessage{
     color: red;
@@ -426,4 +435,32 @@ div.drop-items-icon a
 .enrollments
 {
     text-align: right;
+}
+.unitsView
+{
+    text-align: left;
+}
+div.mb-3
+{
+    text-align: left;
+}
+button.btn.btn-secondary
+{
+    margin-bottom: 10px;
+    width: 150px;
+    margin-top: 10px;
+
+}
+a.btn.btn-outline-secondary
+{
+    width: 100px;
+}
+button.btn.btn-secondary:nth-child(2)
+{
+    width: 300px;
+}
+.saveButtons
+{
+    display: flex;
+    align-items: center;
 }

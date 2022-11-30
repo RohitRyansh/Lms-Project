@@ -44,20 +44,20 @@
             </tr>
             @foreach($categories as $category)
             <tr>
-                <td>  {{  $category->name  }}  </td>
-                <td>  {{  $category->user->first_name  }}  </td>
-                <td>  {{  $category->courses->count()  }}  </td>
-                <td>  {{  $category->created_at  }}  </td>
+                <td>  {{ $category->name  }}  </td>
+                <td>  {{ $category->user->first_name  }}  </td>
+                <td>  {{ $category->courses->count()  }}  </td>
+                <td>  {{ $category->created_at  }}  </td>
                 <td>
                     @if($category->status)
-                        <form action="  {{ route('categories.status', ['category'=> $category,'status'=> 0])   }}  " method="POST">
+                        <form action="{{ route('categories.status', ['category'=> $category,'status'=> 0])   }}  " method="POST">
                             @csrf
                             <span class="badge text-bg-success">
                                 <input type="submit" name="Active" value="Active" class="active">
                             </span>
                         </form>
                     @else
-                        <form action="  {{   route('categories.status', ['category'=> $category,'status'=> 1])   }}  " method="POST">
+                        <form action="  {{ route('categories.status', ['category'=> $category,'status'=> 1])   }}  " method="POST">
                             @csrf
                             <span class="badge text-bg-danger">
                                 <input type="submit" name="Deactive" value="Deactive" class="active">
@@ -74,16 +74,16 @@
                             <li class="drop-items">
                                 <div class="drop-items-icon">
                                     <i class="bi bi-wrench-adjustable"></i>
-                                    <a href="  {{   route('categories.edit', $category)   }}  ">Edit Category</a>
+                                    <a href="{{ route('categories.edit', $category) }} ">Edit Category</a>
                                 </div>
                             </li>
                             <li class="drop-items">
                                 <div class="drop-items-icon">
                                     <i class="bi bi-wrench-adjustable"></i>
-                                    <form action="  {{  route('categories.delete', $category)  }}  " method="post">
+                                    <form action="{{ route('categories.delete', $category) }}" method="post">
                                         @csrf
                                         @method('delete')
-                                        <input type="submit" value="delete" class="deletebuttons">
+                                        <input type="submit" value="Delete" class="deletebuttons">
                                     </form>
                                 </div>
                             </li>

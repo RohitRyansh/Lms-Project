@@ -73,7 +73,7 @@
                         </div>
 
                         <div>
-                            <a href=" {{  route('courses')  }}?category={{ $course->category->id  }} " class="category-badge"> {{ $course->category->name }}</a>
+                            <a href=" {{  route('courses') }}?category={{ $course->category->id  }} " class="category-badge"><p>{{ $course->category->name }}</p></a>
                             <a href=" {{  route ('courses.view', $course)  }} " class="course-head"><h3> {{ $course->title  }} </h3></a>
                             <div class="course-created-details">
                                 <p>Created By:<span> {{ $course->user->first_name }} </span></p>

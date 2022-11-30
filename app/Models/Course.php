@@ -34,8 +34,8 @@ class Course extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function images()
-    {
+    public function images() {
+        
         return $this->hasOne(CourseImage::class);
     }
 

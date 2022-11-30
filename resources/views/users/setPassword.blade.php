@@ -8,7 +8,7 @@
 </head>
 <body>
     <div class="create">
-    <form action="{{route('setpassword',$user)}}" method="post" class="Edit">
+    <form action="{{route('setpassword', $user)}}" method="post" class="Edit">
         @csrf
         <label for="Password">Password</label>
         <input type="password" name="password" id="">

@@ -8,19 +8,19 @@
         </ol>
     </nav>
     <div class="courses1">
-        <form action=" {{  route ('courses.store')  }} " method="post" class="CourseCreate" enctype="multipart/form-data">
+        <form action=" {{  route ('courses.update', $course)  }} " method="post" class="CourseCreate">
             @csrf
 
             <label for="exampleFormControlInput1" class="form-label">What Will Be The Course Name?</label>
-            <input type="text" name="title" class="form-control" id="exampleFormControlInput1" placeholder="Enter Course Name">
+            <input type="text" name="title" class="form-control" id="exampleFormControlInput1" placeholder="Enter Course Name" value=" {{ $course->title }}" required>
             <span class="errorMessage">
                 @error('title')
                  {{ $message }}      
                 @enderror
-            </span>    
+            </span>
 
             <label for="exampleFormControlTextarea1" class="form-label">Provide A Brief Description For What The Course Is About</label>
-            <textarea class="form-control" name="description" id="exampleFormControlTextarea1" rows="3" placeholder="Description"></textarea>
+            <textarea class="form-control" name="description" id="exampleFormControlTextarea1" rows="3" placeholder="Description" required> {{ $course->description }} </textarea>
             <span class="errorMessage">
                 @error('description')
                  {{ $message }}      
@@ -30,19 +30,21 @@
             <label for="category" class="form-label">Which Category Should The Course Be In?</label> 
             <select class="form-select" name="category_id" aria-label="Default select example">
                 @foreach($categories as $category)
-                    <option value=" {{ $category['id'] }} "> {{ $category['slug'] }} </option>
+                    <option value=" {{ $category['id'] }} " @if($course->category_id == $category->id) Selected @endif> {{ $category['slug'] }} </option>
                 @endforeach
             </select> 
 
             <label for="level" class="form-label">What Is The Level Of The Course?</label> 
             <select class="form-select" name="level_id" aria-label="Default select example">
                 @foreach($levels as $level)
-                    <option value=" {{ $level['id'] }} "> {{ $level['name'] }} </option>
+                    <option value=" {{ $level['id'] }} " @if($course->level_id == $level->id) Selected @endif> {{ $level['name'] }} </option>
                 @endforeach
-            </select> 
-            <input type="file" name="image_path">
-            <input type="submit" value="CreateCourse" name="submit">
-        </form>
-    </div>
+            </select>
+
+            <div class="saveButtons">
+                <button type="submit" value="EditCourse" name="create" class="btn btn-secondary">Edit Course</button>
+                <a href=" {{ route('courses')  }} " class="btn btn-outline-secondary">Cancel</a>
+            </div>
+    </form>
 </div>
 @endsection

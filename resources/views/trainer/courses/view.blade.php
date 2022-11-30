@@ -52,31 +52,34 @@
             </div>
         </div>
     </section>
-    
-    <h2 class="content-head">Course Content</h2>
-    
-    @foreach ($course->units as $unit)
-    <section class="unit">
-        <div class="unit-detail">
-            <div>
-                <i class="bi bi-grip-vertical" style="font-size: 25px;color:grey;"></i>
+    <section class="unitsView">
+
+        <h2 class="content-head">Course Content</h2>
+        
+        @foreach ($course->units as $unit)
+        <section class="unit">
+            <div class="unit-detail">
+                <div>
+                    <i class="bi bi-grip-vertical" style="font-size: 25px;color:grey;"></i>
+                </div>
+                <div class="unit-detail-info">
+                    <h3> {{ $unit->title }} </h3>
+                    <p> {{ $unit->description }} </p>
+                </div>
             </div>
-            <div class="unit-detail-info">
-                <h3> {{ $unit->title }} </h3>
-                <p> {{ $unit->description }} </p>
+
+            <div> 
+                <a href=" {{  route('units.edit',['course' => $course, 'unit' => $unit])  }} " class="unit-edit"><i class="bi bi-pencil-square"></i> Edit Section</a>
+                
+                <form action=" {{ route('units.delete', ['course' => $course, 'unit' => $unit]) }} " method="post">
+                    @csrf
+                    @method('delete')
+                    <input type="submit" value="delete" class="btn btn-outline-danger btn-sm">
+                </form>
             </div>
-        </div>
-        <div> 
-            <a href=" {{  route('units.edit',['course' => $course, 'unit' => $unit])  }} " class="unit-edit"><i class="bi bi-pencil-square"></i> Edit Section</a>
-            
-            <form action=" {{ route('units.delete', ['course' => $course, 'unit' => $unit]) }} " method="post">
-                @csrf
-                @method('delete')
-                <input type="submit" value="delete" class="btn btn-outline-danger btn-sm">
-            </form>
-        </div>
+        </section>
+        @endforeach
     </section>
-    @endforeach
 </div>
-    
+
 @endsection

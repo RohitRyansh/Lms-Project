@@ -43,7 +43,7 @@
             
             <div class="mb-3">
                 <label for="exampleFormControlInput1" class="form-label">Phone Number</label>
-                <input type="number" name="phone_no" value=" {{ $user->phone_no }} " class="form-control" id="exampleFormControlInput1" placeholder="Enter Phone Number" required>
+                <input type="text" name="phone_no" value="{{ $user->phone_no }} " class="form-control" id="exampleFormControlInput1" placeholder="Enter Phone Number" required>
                 <span class="errorMessage">
                     @error('phone_no')
                      {{ $message }}      

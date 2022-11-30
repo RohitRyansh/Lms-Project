@@ -63,9 +63,11 @@
                 </select>
             </div>
 
-            <button type="submit" value="create" name="create" class="btn btn-secondary">Invite User</button>
-            <button type="submit" value="create_another" name="create" class="btn btn-secondary">Invite User & Invite Another</button>        
-            <a href=" {{  route('users')  }} " class="btn btn-outline-secondary">Cancel</a>
+            <div class="saveButtons">
+                <button type="submit" value="create" name="create" class="btn btn-secondary">Invite User</button>
+                <button type="submit" value="create_another" name="create" class="btn btn-secondary">Invite User & Invite Another</button>        
+                <a href=" {{ route('users')  }} " class="btn btn-outline-secondary">Cancel</a>
+            </div>
         </form>
     </div>
 </div>

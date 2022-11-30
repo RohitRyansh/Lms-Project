@@ -14,13 +14,14 @@ class CourseEnrollmentController extends Controller
     public function index(Course $course) {
 
         $users = User::active()
-                        ->employee()
-                        ->visibleto(Auth::user())
-                        ->whereDoesntHave('enrollments', function (Builder $query) use($course) {
-                            $query->where('course_id', $course->id);
-                        })
-                        ->get();
-        return view ('enrollments.enrollUser', [
+                    ->employee()
+                    ->visibleto(Auth::user())
+                    ->whereDoesntHave('enrollments', function (Builder $query) use($course) {
+                        $query->where('course_id', $course->id);
+                    })
+                    ->get();
+                        
+        return view ('trainer.courses.enrollment', [
             'users' => $users,
             'course' => $course,
             'enrolledUsers' => $course->enrollments()->get()  

@@ -45,6 +45,6 @@
                 @endforeach
             </tr>
         </table>
-        <a href=" {{  route('courses')  }} " class="btn btn-outline-secondary">courses</a>
+        <a href=" {{ route('courses')  }} " class="btn btn-outline-secondary">courses</a>
     </div>
 @endsection

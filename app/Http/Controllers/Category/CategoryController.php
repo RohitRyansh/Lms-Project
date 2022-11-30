@@ -13,8 +13,7 @@ class CategoryController extends Controller
     public function index() {
 
         return view ('categories.index', [
-            'categories' => Category::latest()
-            ->search (
+            'categories' => Category::search (
                 request ([
                     'search',
                     'newest'
@@ -51,6 +50,7 @@ class CategoryController extends Controller
                 $category->restore();
                 $category->update($attributes);
             }
+            
         } else {
 
             Category::create($attributes);
@@ -75,11 +75,11 @@ class CategoryController extends Controller
     public function update(Request $request, Category $category) {
        
         $attributes = $request->validate ([
-            'name' => ['required','string','min:3','max:255',
-            Rule::in(Category::active()
-                    ->visibleTo(Auth::user())
+            'name' => ['required','string','min:3','max:255'],
+            'category' => ['required',
+                Rule::in(Category::visibleTo(Auth::user())
                     ->get()
-                    ->pluck('id')
+                    ->pluck('slug')
                     ->toArray()
                 )
             ]
