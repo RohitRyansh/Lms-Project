@@ -13,13 +13,14 @@ class CategoryController extends Controller
     public function index() {
 
         return view ('categories.index', [
-            'categories' => Category::search (
-                request ([
-                    'search',
-                    'newest'
-                    ]))
-                    ->visibleto(Auth::user())
-                    ->get()
+            'categories' => Category::with('user')->visibleto(Auth::user())
+                ->search (
+                    request ([
+                        'search',
+                        'newest'
+                        ]))
+                ->withCount('courses')
+                ->get()
         ]);
     }
 
@@ -67,6 +68,8 @@ class CategoryController extends Controller
 
     public function edit(Category $category) {
 
+        $this->authorize('update',$category);
+
         return view ('categories.edit', [
             'category' => $category
         ]);
@@ -74,6 +77,8 @@ class CategoryController extends Controller
 
     public function update(Request $request, Category $category) {
        
+        $this->authorize('update',$category);
+
         $attributes = $request->validate ([
             'name' => ['required','string','min:3','max:255'],
             'category' => ['required',
@@ -92,6 +97,8 @@ class CategoryController extends Controller
     }
 
     public function delete(Category $category) {
+
+        $this->authorize('delete',$category);
 
         $category->delete();
         

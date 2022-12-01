@@ -45,25 +45,22 @@
             @foreach($categories as $category)
             <tr>
                 <td>  {{ $category->name  }}  </td>
-                <td>  {{ $category->user->first_name  }}  </td>
-                <td>  {{ $category->courses->count()  }}  </td>
+                <td>  {{ $category->user->fullname  }}  </td>
+                <td>  {{ $category->courses_count  }}  </td>
                 <td>  {{ $category->created_at  }}  </td>
                 <td>
-                    @if($category->status)
-                        <form action="{{ route('categories.status', ['category'=> $category,'status'=> 0])   }}  " method="POST">
-                            @csrf
-                            <span class="badge text-bg-success">
-                                <input type="submit" name="Active" value="Active" class="active">
-                            </span>
-                        </form>
-                    @else
-                        <form action="  {{ route('categories.status', ['category'=> $category,'status'=> 1])   }}  " method="POST">
-                            @csrf
-                            <span class="badge text-bg-danger">
-                                <input type="submit" name="Deactive" value="Deactive" class="active">
-                            </span>
-                        </form>
-                    @endif
+                    <form action="{{ route('categories.status', $category)}}  " method="POST">
+                        @csrf
+                        @if($category->status == true)
+                        <span class="badge text-bg-danger">
+                            <input type="submit" name="Deactive" value="Deactive" class="active">
+                        </span>
+                        @else
+                        <span class="badge text-bg-success">
+                            <input type="submit" name="Active" value="Active" class="active">
+                        </span>
+                        @endif
+                    </form>
                 </td>
                 <td>
                     <div class="btn-group">

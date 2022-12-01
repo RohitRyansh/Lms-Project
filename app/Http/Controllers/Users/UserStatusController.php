@@ -7,15 +7,23 @@ use App\Models\User;
 
 class UserStatusController extends Controller
 {
-    public function UserStatus(User $user,$status) {
+    public function UserStatus(User $user) {
 
-        $attributes = [
-            
-            'status'=>$status
-        ];
+        if($user->status == true) {
 
+            $attributes = [
+                'status' => false
+            ];
+
+        } else {
+
+            $attributes = [
+                'status' => true
+            ];
+        }
+        
         $user->update($attributes);
-
+        
         return to_route('users');
     }
 }

@@ -17,6 +17,7 @@ class UserController extends Controller
   
         return view ('users.index', [
             'users' => User::visibleto(Auth::user())
+                ->withCount('enrollments')
                 ->search (
                     request ([
                         'search',

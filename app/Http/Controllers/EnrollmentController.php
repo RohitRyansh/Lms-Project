@@ -5,10 +5,14 @@ namespace App\Http\Controllers;
 use App\Models\Course;
 use App\Models\Role;
 use App\Models\User;
+use App\Notifications\CourseEnrolledNotification;
+use App\Notifications\EnrollmentNotification;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Validation\Rule;
+use PHPUnit\Framework\Constraint\Count;
 
 class EnrollmentController extends Controller
 {
@@ -47,8 +51,15 @@ class EnrollmentController extends Controller
                     ->toArray()
                 )],  
             ]);
-                                
+                 
+            
             $user->enrollments()->attach($attributes['courseIds']);
+
+            $course = Course::find($attributes['courseIds'])->pluck('title')->toArray();
+
+            $course = implode(",",$course);
+
+            Notification::send($user, new EnrollmentNotification(Auth::user(), $course));
             
             return back()->with('success', 'Course Enrolled Successfully');
 

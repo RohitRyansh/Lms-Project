@@ -38,6 +38,11 @@ class Category extends Model
         return $this->hasMany(Course::class);
     }
 
+    public function course_unit() {
+
+        return $this->hasManyThrough(CourseUnit::class, Course::class,'category_id','course_id','id','id');
+    }
+
     public function scopeSearch($query,array $filter) {
 
         $query->when($filter['search'] ?? false, function($query, $search) {

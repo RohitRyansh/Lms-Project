@@ -9,6 +9,7 @@ use App\Http\Controllers\CourseStatusController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\EnrollmentController;
 use App\Http\Controllers\ForgetPasswordController;
+use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\SetPasswordController;
 use App\Http\Controllers\UnitController;
@@ -26,6 +27,7 @@ Route::get('/', function () {
         }
          
         return redirect ('/dashboard');
+    // return to_route ('projects');
     }
 
     return to_route ('login');
@@ -51,6 +53,14 @@ Route::middleware('auth')->group(function () {
         return view ('dashboard.overview');
     });
 
+    
+Route::controller(ProjectController::class)->group(function (){
+
+    Route::get ('/projects','index')->name ('projects');
+
+    Route::get ('/projects/{project}/view','view')->name ('projects.view');
+
+});
 Route::controller(UserController::class)->group(function () {
 
     Route::get ('/users','index')->name ('users');
@@ -141,9 +151,9 @@ Route::controller(EmployeeController::class)->group(function() {
 
 Route::get ('/logout', [LoginController::class, 'logout'])->name('Auth.logout');
 
-Route::post ('/users/{user}/{status}/active', [UsersUserStatusController::class,'UserStatus'])->name('users.status');
+Route::post ('/users/{user}/active', [UsersUserStatusController::class,'UserStatus'])->name('users.status');
 
-Route::post ('/category/{category}/{status}/active', [CategoryCategoryStatusController::class,'CategoryStatus'])->name('categories.status');
+Route::post ('/category/{category}/active', [CategoryCategoryStatusController::class,'CategoryStatus'])->name('categories.status');
 
 Route::get('/courses/{course}/status', [CourseStatusController::class, 'CourseStatus'])->name('courses.status');
 

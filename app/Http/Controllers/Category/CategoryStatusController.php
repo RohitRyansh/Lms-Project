@@ -7,13 +7,21 @@ use App\Models\Category;
 
 class CategoryStatusController extends Controller
 {
-    public function CategoryStatus(Category $category, $status) {
+    public function CategoryStatus(Category $category) {
 
-        $attributes = [
+        if($category->status == true) {
 
-            'status'=>$status
-        ];
+            $attributes = [
+                'status' => false
+            ];
 
+        } else {
+
+            $attributes = [
+                'status' => true
+            ];
+        }
+        
         $category->update($attributes);
         
         return to_route('categories');

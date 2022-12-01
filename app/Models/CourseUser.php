@@ -14,14 +14,5 @@ class CourseUser extends Pivot
         'course_id',
     ];
 
-    public function user() {
-
-        return $this->hasMany(User::class);
-    }
-
-    public function course() {
-
-        return $this->hasMany(Course::class);
-    }
 }
 

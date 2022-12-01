@@ -58,28 +58,25 @@
             </tr>
                 @foreach ($users as  $user)
                 <tr>
-                    <td class="table-data"> {{ $user->first_name }}   {{ $user->last_name }} 
+                    <td class="table-data"> {{ $user->full_name }}
                         <br> {{ $user->email }} </td>
                         <td> {{ $user->role->name }} </td>
-                        <td> {{ $user->enrollments->count() }} </td>
+                        <td> {{ $user->enrollments_count }} </td>
                         <td> {{ $user->created_at }} </td>
                         <td>
-                            @if( $user->status)
-                            <form action=" {{ route('users.status', ['user'=>  $user,'status'=> 0])  }} " method="POST">
+                            <form action=" {{ route('users.status', $user)}} " method="POST">
                                 @csrf
+                                @if( $user->status == true)
+                                <span class="badge text-bg-danger">
+                                    <input type="submit" name="Deactive" value="Deactive" class="active">
+                                </span>
+                                @else
                                 <span class="badge text-bg-success">
                                     <input type="submit" name="Active" value="Active" class="active">
                                 </span>
-                        </form>
-                        @else
-                        <form action=" {{  route('users.status', ['user'=>  $user,'status'=> 1]) }} " method="POST">
-                            @csrf
-                            <span class="badge text-bg-danger">
-                                <input type="submit" name="Deactive" value="Deactive" class="active">
-                            </span>
-                        </form>
-                        @endif
-                    </td>
+                                @endif
+                            </form>
+                        </td>
                     <td>
                         <div class="btn-group">
                             <button class="icon" type="button" data-bs-toggle="dropdown" aria-expanded="false">

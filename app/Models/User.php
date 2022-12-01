@@ -63,6 +63,11 @@ class User extends Authenticatable
         return $this->belongsToMany(Course::class);
     }
 
+    public function course_unit() {
+
+        return $this->hasManyThrough(CourseUnit::class, Course::class,'user_id','course_id','id','id');
+    }
+
     public function enrollments() {
 
         return $this->belongsToMany(Course::class)
@@ -79,6 +84,11 @@ class User extends Authenticatable
     public function getIsEmployeeAttribute() {
 
         return $this->role_id == Role::EMPLOYEE;
+    }
+
+    public function getFullNameAttribute() {
+
+        return $this->first_name." ".$this->last_name;
     }
 
     public function scopeSearch($query, array $filter) {

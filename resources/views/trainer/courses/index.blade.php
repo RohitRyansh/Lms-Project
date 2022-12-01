@@ -73,10 +73,10 @@
                         </div>
 
                         <div>
-                            <a href=" {{  route('courses') }}?category={{ $course->category->id  }} " class="category-badge"><p>{{ $course->category->name }}</p></a>
-                            <a href=" {{  route ('courses.view', $course)  }} " class="course-head"><h3> {{ $course->title  }} </h3></a>
+                            <a href=" {{ route('courses') }}?category={{ $course->category->id  }} " class="category-badge"><p>{{ $course->category->name }}</p></a>
+                            <a href=" {{ route ('courses.view', $course)  }} " class="course-head"><h3> {{ $course->title  }} </h3></a>
                             <div class="course-created-details">
-                                <p>Created By:<span> {{ $course->user->first_name }} </span></p>
+                                <p>Created By:<span> {{ $course->user->fullname }} </span></p>
                                 <p>Created On:<span> {{ $course->created_at->format('F d,Y') }} </span></p>
                             </div>
                             

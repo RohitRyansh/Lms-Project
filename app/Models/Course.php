@@ -66,6 +66,11 @@ class Course extends Model
         ->withTimestamps()
         ->using(CourseUser::class);
     }
+
+    public function getPublishedAttribute() {
+
+        return $this->status_id == status::PUBLISHED;
+    }
     
     public function scopeSearch($query, array $filter) {
 

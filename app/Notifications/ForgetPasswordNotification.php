@@ -25,7 +25,7 @@ class ForgetPasswordNotification extends Notification
         return (new MailMessage)
                     ->subject('Please set a Forget password')
                     ->greeting('Welcome '. $notifiable->first_name)
-                    ->action('Forget Password', route('setpassword.index', $notifiable->slug))
+                    ->action('Forget Password', route('resetpassword.index', $notifiable->slug))
                     ->line('Thank you for using our application!');
     }
 
