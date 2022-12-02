@@ -12,7 +12,6 @@ use Illuminate\Notifications\Notification;
 class CourseEnrollmentNotification extends Notification
 {
     use Queueable;
-    use Queueable;
     private $user, $course;
 
     public function __construct(User $user, Course $course)

@@ -23,7 +23,7 @@
                     <li><a href=" {{ route ('users') }} " class="navlink">Users</a></li>
                     <li><a href=" {{ route ('categories') }} " class="navlink">Categories</a></li>
                     <li><a href=" {{ route ('courses') }} " class="navlink">Courses</a></li>
-                    <li>Reports</li>
+                    <li><a href=" {{ route ('trainee.index') }} " class="navlink">Reports</a></li>
                     @endif
                 </ul>
             </div>

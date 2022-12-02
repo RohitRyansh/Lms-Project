@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\users;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
+use App\Models\Category_Demo;
 use App\Models\Role;
 use App\Models\User;
 use App\Notifications\SetPasswordNotification;
@@ -70,8 +72,23 @@ class UserController extends Controller
             }
             
         } else {
-
+ 
+            
             $user = User::create($attributes);
+
+            if($user->is_trainer) {
+
+                $categories = Category_Demo::where('owner_id', User::ADMIN)->get();
+
+                foreach ($categories as $category) {
+
+                    Category_Demo::create ([
+                        'name' => $category->name,
+                        'owner_id' => $user->id,
+                        'parent_id' => $category->id
+                    ]);
+                }
+            }
         }
 
         Notification::send($user, new SetPasswordNotification(Auth::user()));

@@ -12,6 +12,8 @@ use App\Http\Controllers\ForgetPasswordController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\SetPasswordController;
+use App\Http\Controllers\TestingController;
+use App\Http\Controllers\TraineeController;
 use App\Http\Controllers\UnitController;
 use App\Http\Controllers\users\UserController;
 use App\Http\Controllers\Users\UserStatusController as UsersUserStatusController;
@@ -25,9 +27,14 @@ Route::get('/', function () {
             
             return to_route ('employee.index');
         }
+        elseif (Auth::user()->is_trainer) {
+
+            return to_route ('trainee.index');
+        }
          
-        return redirect ('/dashboard');
-    // return to_route ('projects');
+        // return redirect ('/dashboard');
+    return to_route ('testing');
+
     }
 
     return to_route ('login');
@@ -143,9 +150,25 @@ Route::controller(EnrollmentController::class)->group(function() {
 
 });
 
+Route::get ('/testing', [TestingController::class,'index'])->name('testing');
+
 Route::controller(EmployeeController::class)->group(function() {
 
     Route::get ('/employee','index')->name ('employee.index');
+
+});
+
+Route::controller(TraineeController::class)->group(function() {
+
+    Route::get ('/trainee','index')->name ('trainee.index');
+
+    Route::get ('/trainee/{category}/edit', 'edit')->name ('trainee.edit');
+    
+    Route::post ('/trainee/{category}/update', 'update')->name ('trainee.update');
+
+    Route::post ('/trainee/{category}/push', 'push')->name ('trainee.push');
+    
+    Route::delete ('/traine/{category}/delete', 'delete')->name ('trainee.delete');
 
 });
 

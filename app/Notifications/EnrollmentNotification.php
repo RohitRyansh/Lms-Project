@@ -2,6 +2,7 @@
 
 namespace App\Notifications;
 
+use App\Models\Course;
 use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -13,7 +14,7 @@ class EnrollmentNotification extends Notification
     use Queueable;
     private $user, $course;
     
-    public function __construct(User $user,$course)
+    public function __construct(User $user,Course $course)
     {
         $this->user = $user; 
         $this->course = $course;
@@ -29,7 +30,7 @@ class EnrollmentNotification extends Notification
         return (new MailMessage)
                             ->subject('Course Enrolled ')
                             ->greeting('Hey '.$notifiable->first_name)
-                            ->line('Course Enrolled '. $this->course)
+                            ->line('Course Enrolled '. $this->course->title)
                             ->line('Thank you for using our application!');
     }
 

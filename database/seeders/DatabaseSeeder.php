@@ -4,6 +4,8 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Models\Category;
+use App\Models\Category_Demo;
 use App\Models\level;
 use App\Models\Role;
 use App\Models\Roll;
@@ -79,8 +81,15 @@ class DatabaseSeeder extends Seeder
 
         for($i=1;$i<=10;$i++)
         {
+            Category_Demo::create([
+                'name' => 'Category'.$i,
+            ]);
+        }
+
+        for($i=1;$i<=10;$i++)
+        {
             level::create([
-                'name' => 'Level'.$i
+                'name' => 'Level'.$i,
             ]);
         }
     }

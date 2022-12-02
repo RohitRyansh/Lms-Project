@@ -17,6 +17,7 @@ class User extends Authenticatable
     use HasApiTokens, HasFactory, Notifiable, Sluggable, SoftDeletes;
 
     CONST ACTIVE = 1;
+    CONST ADMIN = 1;
     
     protected $fillable = [
         'first_name',
@@ -56,6 +57,11 @@ class User extends Authenticatable
     public function category() {
 
         return $this->hasMany(Category::class);
+    }
+
+    public function category_demo() {
+
+        return $this->hasMany(Category_Demo::class);
     }
 
     public function course() {
