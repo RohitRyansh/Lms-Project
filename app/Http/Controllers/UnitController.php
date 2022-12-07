@@ -34,7 +34,7 @@ class UnitController extends Controller
         if ($request['save'] == 'save') {  
 
             return to_route('courses.view', $course)
-                ->with('success',  'Unit Created Successfully.');
+                ->with('success', 'Unit Created Successfully.');
         }
 
         return back()->with('success', 'Unit Created Successfully.');

@@ -69,7 +69,7 @@
                 <section class="course-list">
                     <div class="course-detail">
                         <div class="course-image">
-                            <img src="{{asset('storage/'.$course->images->image_path)}}" alt="">
+                            <img src="{{asset('storage/'.$course->images->image_path)}}" alt="not found">
                         </div>
 
                         <div>

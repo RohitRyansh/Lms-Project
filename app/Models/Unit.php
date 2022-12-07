@@ -23,5 +23,9 @@ class Unit extends Model
                 'source' => ['title']
         ]];
     }
+
+    public function tests() {
+        return $this->hasMany(Test::class);
+    }
 }
 

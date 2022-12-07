@@ -464,3 +464,7 @@ button.btn.btn-secondary:nth-child(2)
     display: flex;
     align-items: center;
 }
+#pushButton
+{
+    width: 100px;
+}

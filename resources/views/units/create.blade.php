@@ -12,7 +12,7 @@
         </div>
     </div>
     
-    <form action=" {{  route('units.store',$course) }}" class="create-form" method="POST">
+    <form action=" {{  route('courses.units.store',$course) }}" class="create-form" method="POST">
         @csrf
 
         <div class="mb-3">
