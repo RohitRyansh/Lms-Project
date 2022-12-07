@@ -10,9 +10,8 @@ use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\EnrollmentController;
 use App\Http\Controllers\ForgetPasswordController;
 use App\Http\Controllers\ProjectController;
-use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\SetPasswordController;
-use App\Http\Controllers\TestingController;
+use App\Http\Controllers\TestController;
 use App\Http\Controllers\TraineeController;
 use App\Http\Controllers\UnitController;
 use App\Http\Controllers\users\UserController;
@@ -23,6 +22,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
 
     if (Auth::check()) {
+
         if (Auth::user()->is_employee) {
             
             return to_route ('employee.index');
@@ -32,9 +32,7 @@ Route::get('/', function () {
             return to_route ('trainee.index');
         }
          
-        // return redirect ('/dashboard');
-    return to_route ('testing');
-
+        return redirect ('/dashboard');
     }
 
     return to_route ('login');
@@ -118,15 +116,29 @@ Route::controller(CourseController::class)->group(function () {
 
 Route::controller(UnitController::class)->group(function() {
 
-    Route::get('/courses/{course:slug}/units/create', 'create')->name('units');
+    Route::get('/courses/{course:slug}/units/create', 'create')->name('courses.units.create');
 
-    Route::post('/courses/{course}/units/store', 'store')->name('units.store');
+    Route::post('/courses/{course}/units/store', 'store')->name('courses.units.store');
 
-    Route::get('/courses/{course:slug}/unit/{unit}/edit', 'edit')->name('units.edit');
+    Route::get('/courses/{course:slug}/unit/{unit}/edit', 'edit')->name('courses.units.edit');
 
-    Route::put('/courses/{course:slug}/unit/{unit}/update', 'update')->name('units.update');
+    Route::put('/courses/{course:slug}/unit/{unit}/update', 'update')->name('courses.units.update');
 
-    Route::delete('/courses/{course:slug}/unit/{unit}/delete', 'delete')->name('units.delete');
+    Route::delete('/courses/{course:slug}/unit/{unit}/delete', 'delete')->name('courses.units.delete');
+
+});
+
+Route::controller(TestController::class)->group(function() {
+
+    Route::get('/courses/{course:slug}/units{unit:slug}/tests/create', 'create')->name('courses.units.tests.create');
+
+    Route::post('/courses/{course}/units/{unit:slug}/tests/store', 'store')->name('courses.units.tests.store');
+
+    Route::get('/courses/{course:slug}/unit/{unit:slug}/tests/{test}/edit', 'edit')->name('courses.units.tests.edit');
+
+    Route::put('/courses/{course:slug}/unit/{unit:slug}/tests/{test}/update', 'update')->name('courses.units.tests.update');
+
+    Route::delete('/courses/{course:slug}/unit/{unit:slug}/tests/{test}/delete', 'delete')->name('courses.units.tests.delete');
 
 });
 
@@ -149,8 +161,6 @@ Route::controller(EnrollmentController::class)->group(function() {
     Route::delete ('/userEnrollment/{user:slug}/Unenroll/{enrolledCourse}', 'delete')->name ('userenroll.delete');
 
 });
-
-Route::get ('/testing', [TestingController::class,'index'])->name('testing');
 
 Route::controller(EmployeeController::class)->group(function() {
 

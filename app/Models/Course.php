@@ -56,7 +56,7 @@ class Course extends Model
 
     public function units() {
         
-        return $this->belongsToMany(Unit::class, 'course_units');
+        return $this->belongsToMany(Unit::class, 'course_unit');
     }
 
     public function enrollments() {

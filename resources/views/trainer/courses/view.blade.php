@@ -4,7 +4,7 @@
 <div class="allcontent">
     <section class="nav-bottom">
         <div>
-            <a href=" {{  route('units',$course)  }} " class="btn btn-primary" id="createbtn">Add Unit</a>
+            <a href=" {{ route('courses.units.create', $course) }} " class="btn btn-primary" id="createbtn">Add Unit</a>
         </div>
     </section>
     
@@ -13,7 +13,7 @@
         <div class="course-view-detail">
             
             <div class="course-view-detail-left">
-                <img src="https://img.freepik.com/free-vector/images-concept-illustration_114360-218.jpg?w=740&t=st=1669090866~exp=1669091466~hmac=086e2bd34fb211abbc01503852e809c7ea6d9ddf405b0e73ffa9f8d63ebdcb44" alt="loading">
+                <img src="{{asset('storage/'.$course->images->image_path)}}" alt="not found">
                 <div>
                     <h2> {{  $course->title  }} </h2>
                     <p> {{  $course->description  }} </p>
@@ -55,7 +55,6 @@
     <section class="unitsView">
 
         <h2 class="content-head">Course Content</h2>
-        
         @foreach ($course->units as $unit)
         <section class="unit">
             <div class="unit-detail">
@@ -63,15 +62,16 @@
                     <i class="bi bi-grip-vertical" style="font-size: 25px;color:grey;"></i>
                 </div>
                 <div class="unit-detail-info">
-                    <h3> {{ $unit->title }} </h3>
+                    <a href="  " class="unit-edit"><h3> {{ $unit->title }} </h3></a>
+
                     <p> {{ $unit->description }} </p>
                 </div>
             </div>
 
             <div> 
-                <a href=" {{  route('units.edit',['course' => $course, 'unit' => $unit])  }} " class="unit-edit"><i class="bi bi-pencil-square"></i> Edit Section</a>
+                <a href=" {{  route('courses.units.edit',['course' => $course, 'unit' => $unit])  }} " class="unit-edit"><i class="bi bi-pencil-square"></i> Edit Section</a>
                 
-                <form action=" {{ route('units.delete', ['course' => $course, 'unit' => $unit]) }} " method="post">
+                <form action=" {{ route('courses.units.delete', ['course' => $course, 'unit' => $unit]) }} " method="post">
                     @csrf
                     @method('delete')
                     <input type="submit" value="delete" class="btn btn-outline-danger btn-sm">

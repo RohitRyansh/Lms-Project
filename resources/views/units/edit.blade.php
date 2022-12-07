@@ -12,7 +12,7 @@
         </div>
     </div>
     
-    <form action="{{ route('units.update',['course' => $course, 'unit' => $unit]) }}" class="create-form" method="POST">
+    <form action="{{ route('courses.units.update', [$course, $unit]) }}" class="create-form" method="POST">
         @method('PUT')
         @csrf
         <div class="mb-3">
@@ -37,6 +37,9 @@
 
         <button type="submit" name="update" class="btn btn-secondary">Update</button>
         <a href="{{ route('courses.view', $course) }}" class="btn btn-outline-secondary">Cancel</a>
+
+        <a href="{{ route('courses.units.tests.create', [$course, $unit]) }}" class="btn btn-outline-secondary">Add Test</a>
+
 
     </form>
 </div>
