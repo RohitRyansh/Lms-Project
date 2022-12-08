@@ -468,3 +468,7 @@ button.btn.btn-secondary:nth-child(2)
 {
     width: 100px;
 }
+.lessons
+{
+    text-align: left;
+}

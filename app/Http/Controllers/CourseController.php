@@ -7,6 +7,7 @@ use App\Models\Course;
 use App\Models\CourseImage;
 use App\Models\level;
 use App\Models\status;
+use App\Models\Test;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
@@ -87,7 +88,7 @@ class CourseController extends Controller
     public function view(Course $course) {
 
         return view ('trainer.courses.view', [
-            'course' => $course
+            'course' => $course,
         ]);
     }
 

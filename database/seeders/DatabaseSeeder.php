@@ -48,6 +48,8 @@ class DatabaseSeeder extends Seeder
             'email' => 'admin@admin.com',
             'created_by' => '0',
             'phone_no' => 4854665445,
+            'email_status' => 1,
+            'status' => 1,
             'password' => Hash::make('123456789'),
             'image' => 'null'
         ]);
@@ -78,13 +80,6 @@ class DatabaseSeeder extends Seeder
             'name' => 'Draft',
             'slug' => 'draft'
         ]);
-
-        for($i=1;$i<=10;$i++)
-        {
-            Category_Demo::create([
-                'name' => 'Category'.$i,
-            ]);
-        }
 
         for($i=1;$i<=10;$i++)
         {

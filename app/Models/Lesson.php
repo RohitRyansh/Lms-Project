@@ -17,7 +17,6 @@ class Lesson extends Model
     ];
 
     public function lessonable() {
-        
         return $this->morphTo();
     }
 }

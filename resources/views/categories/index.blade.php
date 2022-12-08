@@ -49,18 +49,15 @@
                 <td>  {{ $category->courses_count  }}  </td>
                 <td>  {{ $category->created_at  }}  </td>
                 <td>
-                    <form action="{{ route('categories.status', $category)}}  " method="POST">
-                        @csrf
-                        @if($category->status == true)
-                        <span class="badge text-bg-danger">
-                            <input type="submit" name="Deactive" value="Deactive" class="active">
-                        </span>
-                        @else
-                        <span class="badge text-bg-success">
-                            <input type="submit" name="Active" value="Active" class="active">
-                        </span>
-                        @endif
-                    </form>
+                    @if($category->status == true)
+                    <span class="badge text-bg-success">
+                        <p>active</p>
+                    </span>
+                    @else
+                    <span class="badge text-bg-danger">
+                        <p>deactive</p>
+                    </span> 
+                    @endif
                 </td>
                 <td>
                     <div class="btn-group">
@@ -74,6 +71,17 @@
                                     <a href="{{ route('categories.edit', $category) }} ">Edit Category</a>
                                 </div>
                             </li>
+                            <li>
+                                <form action="{{ route('categories.status', $category)}}  " method="POST">
+                                    @csrf
+                                    @if($category->status == true)
+                                    <input type="submit" name="Deactive" value="Deactive" class="deletebuttons">
+                                    @else
+                                    <input type="submit" name="Active" value="Active" class="deletebuttons">
+                                    @endif
+                                </form>
+                            </li>
+
                             <li class="drop-items">
                                 <div class="drop-items-icon">
                                     <i class="bi bi-wrench-adjustable"></i>

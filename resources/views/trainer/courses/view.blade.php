@@ -28,7 +28,7 @@
             <div class="course-detail-bottom-elements">
                 <p><i class="bi bi-stopwatch" style="font-weight: bold;font-size: 20px;"></i></p>
                 <p>Course Duration</p>
-                <div><p>0m</p></div>
+                <div><p>{{ $course->units->sum('duration')}}m</p></div>
             </div>
             <div class="course-detail-bottom-elements">
                 <p><i class="bi bi-easel" style="font-weight: bold;font-size: 20px;"></i></p>

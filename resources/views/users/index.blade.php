@@ -64,18 +64,15 @@
                         <td> {{ $user->enrollments_count }} </td>
                         <td> {{ $user->created_at }} </td>
                         <td>
-                            <form action=" {{ route('users.status', $user)}} " method="POST">
-                                @csrf
-                                @if( $user->status == true)
-                                <span class="badge text-bg-danger">
-                                    <input type="submit" name="Deactive" value="Deactive" class="active">
-                                </span>
-                                @else
-                                <span class="badge text-bg-success">
-                                    <input type="submit" name="Active" value="Active" class="active">
-                                </span>
-                                @endif
-                            </form>
+                            @if($user->status == true)
+                            <span class="badge text-bg-success">
+                                <p>active</p>
+                            </span>
+                            @else
+                            <span class="badge text-bg-danger">
+                                <p>deactive</p>
+                            </span> 
+                            @endif
                         </td>
                     <td>
                         <div class="btn-group">
@@ -89,6 +86,16 @@
                                         <i class="bi bi-wrench-adjustable"></i>
                                         <a href=" {{  route('users.edit', $user) }} ">Edit User</a>
                                     </div>
+                                </li>
+                                <li>
+                                    <form action=" {{ route('users.status', $user)}} " method="POST">
+                                        @csrf
+                                        @if( $user->status == true)
+                                        <input type="submit" name="Deactive" value="Deactive" class="deletebuttons">
+                                        @else
+                                        <input type="submit" name="Active" value="Active" class="deletebuttons">
+                                        @endif
+                                    </form>
                                 </li>
 
                                 <li class="drop-items">

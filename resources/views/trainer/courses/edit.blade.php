@@ -8,9 +8,8 @@
         </ol>
     </nav>
     <div class="courses1">
-        <form action=" {{  route ('courses.update', $course)  }} " method="post" class="CourseCreate">
+        <form action=" {{ route ('courses.update', $course)  }} " method="post" class="CourseCreate">
             @csrf
-
             <label for="exampleFormControlInput1" class="form-label">What Will Be The Course Name?</label>
             <input type="text" name="title" class="form-control" id="exampleFormControlInput1" placeholder="Enter Course Name" value=" {{ $course->title }}" required>
             <span class="errorMessage">
@@ -45,6 +44,7 @@
                 <button type="submit" value="EditCourse" name="create" class="btn btn-secondary">Edit Course</button>
                 <a href=" {{ route('courses')  }} " class="btn btn-outline-secondary">Cancel</a>
             </div>
+
     </form>
 </div>
 @endsection

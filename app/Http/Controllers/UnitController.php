@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Course;
 use App\Models\CourseUnit;
+use App\Models\Test;
 use App\Models\Unit;
 use Illuminate\Http\Request;
 
@@ -44,7 +45,7 @@ class UnitController extends Controller
 
         return view('units.edit', [
             'unit' => $unit,
-            'course' => $course
+            'course' => $course,
         ]);
     }
 

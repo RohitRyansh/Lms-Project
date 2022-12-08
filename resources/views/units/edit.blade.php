@@ -11,9 +11,10 @@
             </ol>
         </div>
     </div>
-    
+    @if (session('success'))
+            <p class="succesmessage"> {{ session('success') }} </p>
+        @endif
     <form action="{{ route('courses.units.update', [$course, $unit]) }}" class="create-form" method="POST">
-        @method('PUT')
         @csrf
         <div class="mb-3">
             <label for="title" class="form-label">Title</label>
@@ -37,10 +38,23 @@
 
         <button type="submit" name="update" class="btn btn-secondary">Update</button>
         <a href="{{ route('courses.view', $course) }}" class="btn btn-outline-secondary">Cancel</a>
-
         <a href="{{ route('courses.units.tests.create', [$course, $unit]) }}" class="btn btn-outline-secondary">Add Test</a>
 
-
     </form>
+    <div class="lessons">
+        <h2>Lessons</h2>
+        @foreach ($unit->tests as $test)
+            <p>{{$test->name}}</p>
+            <div> 
+                <a href=" {{ route('courses.units.tests.edit', ['course' => $course, 'unit' => $unit, 'test' => $test])  }} " class="unit-edit"><i class="bi bi-pencil-square"></i> Edit </a>
+                <form action=" {{ route('courses.units.tests.delete', ['course' => $course, 'unit' => $unit, 'test' => $test]) }} " method="post">
+                    @csrf
+                    @method('delete')
+                    <input type="submit" value="delete" class="btn btn-outline-danger btn-sm">
+                </form>
+            </div>
+        @endforeach
+    </div>
 </div>
-    @endsection
+
+@endsection
