@@ -6,7 +6,7 @@ use App\Models\Course;
 use App\Models\Test;
 use App\Models\Unit;
 use Illuminate\Http\Request;
-//Wip
+
 class TestController extends Controller
 {
     public function create(Course $course, Unit $unit)

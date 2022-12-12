@@ -7,6 +7,9 @@
             <li class="breadcrumb-item active" aria-current="page">Add Course</li>
         </ol>
     </nav>
+    @if (session('success'))
+        <p class="succesmessage"> {{ session('success') }} </p>
+    @endif
     <div class="courses1">
         <form action=" {{ route ('courses.store') }} " method="post" class="CourseCreate" enctype="multipart/form-data">
             @csrf

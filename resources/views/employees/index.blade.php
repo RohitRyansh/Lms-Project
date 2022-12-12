@@ -7,15 +7,14 @@
             <th>Created At</th>
         </tr>
         <tr>
-        @if ($Courses)
-            @foreach ($Courses as $Course)
-                <td> {{ $Course->title }} </td> 
-                <td> {{ $Course->created_at }} </td>
+        @if ($courses)
+            @foreach ($courses as $course)
+                <td><a href=" {{ route('employee.units.index', $course)  }}"> {{ $course->title }}</a> </td> 
+                <td> {{ $course->created_at }} </td>
             @endforeach
         @else
             <h1 style="text-align: center;">No Course Enrolled</h1>         
         @endif
-
         </tr>
     </table>
 </div>

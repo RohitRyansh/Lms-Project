@@ -25,7 +25,7 @@ class QuestionController extends Controller
 
         $attributes = $request->validate ([
             'question' => 'required|min:3|max:255',
-            'options' => 'array|size:2',
+            'options' => 'array|size:4',
             'options.*' => 'required|min:3|max:255',
             'answer' => 'required|gt:0'
         ]);
@@ -41,12 +41,14 @@ class QuestionController extends Controller
         collect($attributes['options'])
             ->each(function ($option) use($question, &$i, $attributes) {
 
-                $answer = Option::create([
+                $answer = Option::create ([
                     'option' => $option,
                     'question_id' => $question->id,
                 ]);
 
-                if($i == $attributes['answer']) {
+                $i++;
+
+                if ($i == $attributes['answer']) {
                     $answer->update([
                         'answer' => true
                     ]);
@@ -78,12 +80,35 @@ class QuestionController extends Controller
 
         $attributes = $request->validate ([
             'question' => 'required|min:3|max:255',
-            'options' => 'array|size:2',
+            'options' => 'array|size:4',
             'options.*' => 'required|min:3|max:255',
-            'answer' => 'required|gt:0'
+            'answer' => 'required'
         ]);
 
-        $question->update($attributes);
+        $question->update([
+            'question' => $attributes['question']
+        ]);
+
+        $i = 0;
+
+        $question->options()
+            ->each(function ($option) use( &$i, $attributes) {
+
+                if ($i == $attributes['answer']) {
+                    $option->update([
+                        'option' => $attributes['options'][$i],
+                        'answer' => true
+                    ]);
+                } else {
+
+                    $option->update([
+                        'option' => $attributes['options'][$i],
+                        'answer' => false
+                    ]);
+                }
+            $i++;
+            }
+        );
 
         return to_route('tests.questions.edit', [$course, $unit, $test, $question])
             ->with('success', 'Question Updated Successfully');

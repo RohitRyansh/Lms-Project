@@ -6,10 +6,12 @@ use App\Http\Controllers\Category\CategoryStatusController as CategoryCategorySt
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\CourseEnrollmentController;
 use App\Http\Controllers\CourseStatusController;
-use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\EnrollmentController;
 use App\Http\Controllers\ForgetPasswordController;
-use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\Learner\EmployeeController;
+use App\Http\Controllers\Learner\LearnerQuestionController;
+use App\Http\Controllers\Learner\LearnerTestController;
+use App\Http\Controllers\Learner\LearnerUnitController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\SetPasswordController;
 use App\Http\Controllers\TestController;
@@ -54,19 +56,10 @@ Route::middleware('guest')->group(function () {
 
 Route::middleware('auth')->group(function () {
 
-    Route::get('/dashboard',function ()
-    {
+    Route::get('/dashboard',function () {
         return view ('dashboard.overview');
     });
 
-    
-Route::controller(ProjectController::class)->group(function (){
-
-    Route::get ('/projects','index')->name ('projects');
-
-    Route::get ('/projects/{project}/view','view')->name ('projects.view');
-
-});
 Route::controller(UserController::class)->group(function () {
 
     Route::get ('/users','index')->name ('users');
@@ -182,6 +175,17 @@ Route::controller(EmployeeController::class)->group(function() {
     Route::get ('/employee','index')->name ('employee.index');
 
 });
+
+Route::get ('/employee/courses/{course:slug}/units', [LearnerUnitController::class, 'index'])->name('employee.units.index');
+
+Route::get ('/employee/courses/units/{unit:slug}/tests', [LearnerTestController::class, 'index'])->name('employee.units.tests.index');
+
+Route::get ('/employee/courses/units/tests/{test}', [LearnerQuestionController::class, 'index'])->name('employee.tests.questions.index');
+
+Route::post ('/employee/courses/units/tests/questions/{question}', [LearnerQuestionController::class, 'next'])->name('employee.questions.next');
+
+Route::post ('/employee/courses/units/tests/{test}/questions/{questions}', [LearnerQuestionController::class, 'check'])->name('employee.questions.check');
+
 
 Route::controller(TraineeController::class)->group(function() {
 

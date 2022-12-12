@@ -54,12 +54,12 @@ class CategoryController extends Controller
             
         } else {
 
-            Category::create($attributes);
+            $category = Category::create($attributes);
         }
         
         if ($request['create'] == 'create') {  
 
-            return to_route('categories')
+            return to_route('categories.edit', $category)
                 ->with('success',  'Category Created Successfully.');
         }
 

@@ -30,4 +30,5 @@ class Test extends Model
     public function lessons() {
         return $this->morphMany(Lesson::class, 'lessonable');
     }
+
 }

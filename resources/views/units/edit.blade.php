@@ -5,10 +5,12 @@
     <div class="breadcrumbs-mine">
         <div style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item" ><h4><a href="{{ route('courses') }}" style="text-decoration: none;">Course</a></h4></li>
-                <li class="breadcrumb-item" ><h4 class="h4"><a href="{{ route('courses.view', $course) }}" style="text-decoration: none;width: 600px;">{{ $course->title }}</a></h4></li>
-                <li class="breadcrumb-item active" aria-current="page" style="width: 600px;"><h4>Edit Unit</h4></li>
+                <li class="breadcrumb-item" ><a href="{{ route('courses') }}" style="text-decoration: none;">Course</a></li>
+                <li class="breadcrumb-item" ><a href="{{ route('courses.view', $course) }}" style="text-decoration: none;width: 600px;">{{ $course->title }}</a></li>
             </ol>
+        </div>
+        <div>
+            <a href=" {{ route('courses') }} " class="btn btn-primary" id="createbtn">Go to Course Content</a>
         </div>
     </div>
     @if (session('success'))
@@ -44,15 +46,23 @@
     <div class="lessons">
         <h2>Lessons</h2>
         @foreach ($unit->tests as $test)
-            <p>{{$test->name}}</p>
-            <div> 
-                <a href=" {{ route('courses.units.tests.edit', ['course' => $course, 'unit' => $unit, 'test' => $test])  }} " class="unit-edit"><i class="bi bi-pencil-square"></i> Edit </a>
-                <form action=" {{ route('courses.units.tests.delete', ['course' => $course, 'unit' => $unit, 'test' => $test]) }} " method="post">
+        <div class="unit-detail">
+            <div>
+                <div class="units">
+                    <i class="bi bi-grip-vertical" style="font-size: 25px;color:grey;"></i>
+                    <p>{{$test->name}}</p>
+                </div>
+                <p>{{ $test->questions()->count() }} Questions</p>  
+            </div>
+            <div class="editAndDelete"> 
+                <a href=" {{ route('courses.units.tests.edit', [ $course, $unit, $test ]) }} " class="unit-edit"><i class="bi bi-pencil-square"></i> Edit </a>
+                <form action=" {{ route('courses.units.tests.delete', [ $course, $unit, $test ]) }} " method="post">
                     @csrf
                     @method('delete')
                     <input type="submit" value="delete" class="btn btn-outline-danger btn-sm">
                 </form>
             </div>
+        </div>
         @endforeach
     </div>
 </div>

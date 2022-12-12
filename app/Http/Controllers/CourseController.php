@@ -81,7 +81,7 @@ class CourseController extends Controller
             'course_id' => $course->id
             ]);
          
-        return to_route ('courses')
+        return to_route ('courses.edit', $course)
             ->with('success', 'Course Created Successfully.');
     }
 
@@ -93,6 +93,8 @@ class CourseController extends Controller
     }
 
     public function edit(Course $course) {
+
+        $this->authorize('update',$course);
 
         return view ('trainer.courses.edit', [
             'course' => $course,
@@ -118,6 +120,8 @@ class CourseController extends Controller
                 )
             ],
         ]);
+
+        $this->authorize('update',$course);
 
         $course->update($attributes);
 

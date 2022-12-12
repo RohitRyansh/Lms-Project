@@ -83,6 +83,13 @@ class DatabaseSeeder extends Seeder
 
         for($i=1;$i<=10;$i++)
         {
+            Category_Demo::create([
+                'name' => 'Category'.$i,
+            ]);
+        }
+
+        for($i=1;$i<=10;$i++)
+        {
             level::create([
                 'name' => 'Level'.$i,
             ]);

@@ -8,7 +8,7 @@
         </ol>
     </nav>
     <div class="create">
-        <form action=" {{ route('users.update',$user) }} " method="post" class="createForm">
+        <form action=" {{ route('users.update', $user) }} " method="post" class="createForm">
             @csrf
             
             <div class="mb-3">

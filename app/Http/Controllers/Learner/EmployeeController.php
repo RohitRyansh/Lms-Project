@@ -1,9 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Learner;
 
+use App\Http\Controllers\Controller;
 use App\Models\Course;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class EmployeeController extends Controller
@@ -16,8 +18,9 @@ class EmployeeController extends Controller
                         ->published()
                         ->get();
 
+
         return view ('employees.index', [
-            'Courses' => $courses
+            'courses' => $courses,
         ]);
     }
 }

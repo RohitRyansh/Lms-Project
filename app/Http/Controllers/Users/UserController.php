@@ -72,22 +72,22 @@ class UserController extends Controller
             }
             
         } else {
- 
-            
+  
             $user = User::create($attributes);
 
-            if($user->is_trainer) {
+        }
 
-                $categories = Category_Demo::where('owner_id', User::ADMIN)->get();
+        if($user->is_trainer) {
 
-                foreach ($categories as $category) {
+            $categories = Category_Demo::where('owner_id', User::ADMIN)->get();
 
-                    Category_Demo::create ([
-                        'name' => $category->name,
-                        'owner_id' => $user->id,
-                        'parent_id' => $category->id
-                    ]);
-                }
+            foreach ($categories as $category) {
+
+                Category_Demo::create ([
+                    'name' => $category->name,
+                    'owner_id' => $user->id,
+                    'parent_id' => $category->id
+                ]);
             }
         }
 
@@ -95,7 +95,7 @@ class UserController extends Controller
 
         if ($request['create'] == 'create') {  
 
-            return to_route('users')
+            return to_route('users.edit', $user)
                 ->with('success',  'User Created Successfully.');
         }
 
@@ -104,6 +104,8 @@ class UserController extends Controller
     }
 
     public function edit(User $user) {
+
+        $this->authorize('update',$user);
 
         return view ('users.edit', [
             'user' => $user
@@ -117,6 +119,8 @@ class UserController extends Controller
             'last_name' => 'required|string|min:1|max:255',
             'phone_no' => 'required|numeric|digits:10',
         ]);
+
+        $this->authorize('update',$user);
 
         $user->update($attributes);
 

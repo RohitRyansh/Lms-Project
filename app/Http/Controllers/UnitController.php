@@ -34,7 +34,7 @@ class UnitController extends Controller
 
         if ($request['save'] == 'save') {  
 
-            return to_route('courses.view', $course)
+            return to_route('courses.units.edit', [$course, $unit])
                 ->with('success', 'Unit Created Successfully.');
         }
 
@@ -42,6 +42,8 @@ class UnitController extends Controller
     }
 
     public function edit(Course $course, Unit $unit) {
+
+        $this->authorize('update',$course);
 
         return view('units.edit', [
             'unit' => $unit,
@@ -56,6 +58,8 @@ class UnitController extends Controller
             'description' => 'required|string|min:5'
         ]);
 
+        $this->authorize('update',$course);
+
         $unit->update($attributes);
 
         return to_route('courses.view', $course)
@@ -63,6 +67,8 @@ class UnitController extends Controller
     }
 
     public function delete(Course $course, Unit $unit) {
+
+        $this->authorize('delete',$course);
 
         $unit->delete();
 
