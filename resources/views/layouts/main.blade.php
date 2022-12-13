@@ -17,7 +17,7 @@
                 <ul class="navcontent">
                     <li><img src="/LOGO.webp" alt="not found" width="180px"></li>
                     @if (Auth::user()->is_employee)
-                    <li><a href="" class="navlink">Courses</a></li>   
+                    <li><a href="{{ route ('employee.index') }}" class="navlink">Courses</a></li>   
                     @else   
                     <li><a href="/dashboard">Overview</a></li>
                     <li><a href=" {{ route ('users') }} " class="navlink">Users</a></li>

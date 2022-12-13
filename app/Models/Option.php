@@ -19,4 +19,10 @@ class Option extends Model
         
         return $this->belongsTo(Question::class);
     }
+
+    public function scopeTrueAnswers($query, Question $question) {
+        
+        return $query->where('question_id', $question->id)
+            ->where('answer', true)->first();
+    }
 }

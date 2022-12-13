@@ -524,5 +524,13 @@ a.unit-edit
 {
     text-align: left;
 }
-
+.index a {
+    text-decoration: none;
+    color: black;
+}
+.testattempt
+{
+    display: flex;
+    justify-content: space-between;
+}
 

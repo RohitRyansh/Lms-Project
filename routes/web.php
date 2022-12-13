@@ -180,11 +180,9 @@ Route::get ('/employee/courses/{course:slug}/units', [LearnerUnitController::cla
 
 Route::get ('/employee/courses/units/{unit:slug}/tests', [LearnerTestController::class, 'index'])->name('employee.units.tests.index');
 
-Route::get ('/employee/courses/units/tests/{test}', [LearnerQuestionController::class, 'index'])->name('employee.tests.questions.index');
+Route::get ('/employee/courses/units{unit:slug}/tests/{test}/question/{question?}', [LearnerQuestionController::class, 'index'])->name('employee.tests.questions.index');
 
-Route::post ('/employee/courses/units/tests/questions/{question}', [LearnerQuestionController::class, 'next'])->name('employee.questions.next');
-
-Route::post ('/employee/courses/units/tests/{test}/questions/{questions}', [LearnerQuestionController::class, 'check'])->name('employee.questions.check');
+Route::post ('/employee/courses/units{unit:slug}/tests/{test}/questions/{question}', [LearnerQuestionController::class, 'check'])->name('employee.questions.check');
 
 
 Route::controller(TraineeController::class)->group(function() {

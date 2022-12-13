@@ -6,16 +6,16 @@
             <th>Course Name</th>
             <th>Created At</th>
         </tr>
-        <tr>
         @if ($courses)
-            @foreach ($courses as $course)
-                <td><a href=" {{ route('employee.units.index', $course)  }}"> {{ $course->title }}</a> </td> 
+        @foreach ($courses as $course)
+        <tr>
+                <td> <h4><a href=" {{ route('employee.units.index', $course)  }}">{{ $course->title }}</a></h4> </td> 
                 <td> {{ $course->created_at }} </td>
+            </tr>
             @endforeach
         @else
             <h1 style="text-align: center;">No Course Enrolled</h1>         
         @endif
-        </tr>
     </table>
 </div>
 @endsection

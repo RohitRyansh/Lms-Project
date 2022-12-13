@@ -14,7 +14,6 @@
                 <th>Enrolled</th>
                 <th>Action</th>
             </tr>
-            <tr>
                 <form action=" {{ route('enroll.store', $course)  }} " method="post">
                     @csrf
                     <div class="btn-group">
@@ -35,6 +34,7 @@
                     @enderror
                 </div>
                 @foreach ($enrolledUsers as $enrolledUser)
+                <tr>
                 <td> {{ $enrolledUser->first_name }} </td>
                 <td> {{ $enrolledUser->created_at }} </td>
                 <form action=" {{ route('enroll.delete',['course' => $course,'enrolledUser' => $enrolledUser] ) }} " method="post">
@@ -42,8 +42,8 @@
                     @method('delete')
                     <td><input type="submit" value="Unenroll" class="enrollDelete"></td>
                 </form>
-                @endforeach
             </tr>
+                @endforeach
         </table>
         <a href=" {{  route('courses')  }} " class="btn btn-outline-secondary">courses</a>
     </div>

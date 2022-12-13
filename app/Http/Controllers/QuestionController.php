@@ -38,7 +38,7 @@ class QuestionController extends Controller
 
         $i = 0;
 
-        collect($attributes['options'])
+    collect($attributes['options'])
             ->each(function ($option) use($question, &$i, $attributes) {
 
                 $answer = Option::create ([
